@@ -1,0 +1,360 @@
+html,
+body {
+  font-size: 2vh;
+  color: white;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+}
+
+p {
+  /* text-align: center; */
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: orange;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* SUCCESS PAGE */
+.successContainer {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: white !important;
+  color: black;
+  text-align: center;
+}
+
+.successWrapper {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.success {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.venue {
+  font-size: 3rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.time {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+.blurb {
+  padding-top: 2rem;
+  font-size: 1.2rem;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+#tickImg {
+  width: 25%;
+  height: 25%;
+}
+.fakeButton {
+  background-color: #0072ce;
+  color: white;
+  width: 80%;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7rem 1rem;
+  box-shadow: 1px 1px 4px #888;
+}
+.cancel {
+  color: #0072ce;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.2rem 0;
+}
+
+/* QR Reader */
+
+video {
+  position: absolute;
+  min-height: 100%;
+  /* top: -200px !important; */
+  filter: brightness(0.4);
+  height: auto !important;
+}
+
+.qrReaderDescription {
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 2.5vh;
+  padding-right: 2.5vh;
+  padding-top: 1vh;
+  /* margin-top: vh; */
+  /* margin-top: 2rem; */
+  text-align: center;
+  position: absolute;
+  top: 43vh;
+  font-size: 1.1rem;
+}
+
+/* General */
+.closeIcon {
+  position: fixed;
+  top: 10px;
+  left: 15px;
+  z-index: 10;
+  height: 1.8rem;
+
+  cursor: pointer;
+}
+
+/* Icons */
+.infoIcon {
+  height: 2.3rem;
+  vertical-align: middle;
+}
+
+.aboutIcon {
+  height: 3rem;
+}
+
+.shareIcon {
+  margin-top: 5px;
+
+  height: 2.3rem;
+}
+
+.githubIcon {
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
+.backArrowIcon {
+  vertical-align: middle;
+
+  height: 2.5rem;
+}
+
+.backButton {
+  position: relative;
+  top: 20px;
+  font-size: 2rem;
+  border: #ffffff;
+}
+
+/* The container must be positioned relative: */
+.custom-select {
+  top: 10;
+  padding-bottom: 50px;
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.drawer {
+  /* color: white; */
+  display: flex;
+  height: 90%;
+  opacity: 0.8;
+  padding: 2rem;
+  /* font-size: 30px; */
+  /* text-align: center; */
+  font-weight: bold;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+}
+
+li {
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
+
+.menuItem {
+  margin-bottom: 2rem;
+}
+
+.menuFooter {
+  text-align: center;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  margin-bottom: 1rem;
+}
+
+.about li {
+  padding: 0px;
+  margin-bottom: 1rem;
+}
+
+.overlay {
+  border-radius: 15px;
+  height: 35vh;
+  width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 1);
+  color: white;
+  font-weight: 600;
+  margin: auto;
+  margin-top: 3rem;
+  mix-blend-mode: overlay;
+  text-align: center;
+}
+
+.menu {
+  height: 100%;
+  align-content: space-between;
+}
+
+.aboutContainer::-webkit-scrollbar {
+  display: none;
+}
+.aboutContainer {
+  overflow: auto !important;
+  font-size: 2vh;
+  top: 2rem;
+  padding: 1.5rem;
+  opacity: 0.8;
+  height: 95vh;
+  word-wrap: break-word;
+  position: relative;
+  text-align: center;
+}
+
+.container {
+  min-height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.item {
+  flex: 0 0 auto;
+  margin: 9px;
+  cursor: pointer;
+}
+
+.crypto {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.paypalButton {
+  padding-top: 3rem;
+}
+
+.about {
+  margin-left: 10vw;
+  text-align: left;
+}
+
+ul.about {
+  list-style: circle;
+}
+
+.footer {
+  padding: 1.5rem;
+}
+
+.input-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 95vw;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.input-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.input-box .venue-box {
+  text-align: center;
+  position: relative;
+}
+
+.input-box .venue-box input {
+  width: 90%;
+
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.input-box .venue-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.input-box .venue-box input:focus ~ label,
+.input-box .venue-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.donate {
+  margin-top: 2rem;
+}
+
+.versionNumber {
+  opacity: 0.5;
+  padding-bottom: 5rem;
+}
+
+.selectedCamera {
+  opacity: 1 !important;
+}
+
+.camera {
+  opacity: 0.5;
+}

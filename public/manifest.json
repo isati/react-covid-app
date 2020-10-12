@@ -1,0 +1,19 @@
+{
+  "name": "NHS Covid-19 - React App",
+  "short_name": "NHS Covid-19",
+  "icons": [
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "permissions": {
+    "video-capture": {
+      "description": "Required to capture video using getUserMedia()"
+    }
+  }
+}
