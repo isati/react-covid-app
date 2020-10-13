@@ -358,3 +358,12 @@ ul.about {
 .camera {
   opacity: 0.5;
 }
+
+.web-share-fade-in-up {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+button[aria-label="Close"] {
+  background-color: black !important;
+  color: white;
+}

@@ -162,9 +162,9 @@ class Reader extends React.Component {
       vConstraintsPromise =
         supported.facingMode || isFirefox
           ? Promise.resolve(props.constraints || constraints)
-          : getDefaultDeviceId(facingMode).then((deviceId) =>
-              Object.assign({}, { deviceId }, props.constraints)
-            );
+          : getDefaultDeviceId(facingMode).then((deviceId) => {
+              Object.assign({}, { deviceId }, props.constraints);
+            });
     } else {
       vConstraintsPromise = getIdDirectly(
         facingMode,
@@ -174,12 +174,20 @@ class Reader extends React.Component {
     vConstraintsPromise
       .then((video) => navigator.mediaDevices.getUserMedia({ video }))
       .then(this.handleVideo)
+      .then(() =>
+        // Send enumerated devices to app
+        navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => this.props.setDevices(devices))
+      )
       .catch(onError);
   }
 
   handleVideo(stream) {
     const { preview } = this.els;
     const { facingMode } = this.props;
+
+    // Send enumerated devices to our app for streamlined enumeration
 
     // Preview element hasn't been rendered so wait for it.
     if (!preview && this.worker !== undefined) {
