@@ -7,10 +7,10 @@ import Bounce from "react-reveal/Bounce";
 const About = () => {
   return (
     <Bounce bottom>
+      <Link to="/">
+        <img className="closeIcon" alt="Camera menu" src={CloseIcon} />
+      </Link>
       <div className="aboutContainer">
-        <Link to="/">
-          <img className="closeIcon" alt="Camera menu" src={CloseIcon} />
-        </Link>
         <ul className="about">
           <li>App does not collect or send data anywhere.</li>
           <li>
@@ -24,7 +24,8 @@ const About = () => {
           <li>Double tap outside the viewport area to enter fullscreen.</li>
           <li>
             App will present a text input field if no cameras detected or camera
-            permission denied.
+            permission denied. Can also be accessed via{" "}
+            <Link to="/input">/input</Link>
           </li>
         </ul>
         <div className="donate">
@@ -67,11 +68,13 @@ const About = () => {
           <p>Thank you.</p>
         </div>
         <div>
-          Made with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>{" "}
-          by sick.earth
+          <p className="footerText">
+            Made with{" "}
+            <span role="img" aria-label="heart">
+              ❤️
+            </span>{" "}
+            by sick.earth
+          </p>
           <div className="footer">
             {" "}
             <a href="https://github.com/isati/react-nhs-qr-app">

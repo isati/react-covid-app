@@ -116,10 +116,10 @@ video {
 
 /* General */
 .closeIcon {
-  position: fixed;
+  position: absolute;
   top: 10px;
   left: 15px;
-  z-index: 10;
+  z-index: 1000;
   height: 1.8rem;
 
   cursor: pointer;
@@ -239,12 +239,13 @@ li {
   display: none;
 }
 .aboutContainer {
+  display: block;
   overflow: auto !important;
   font-size: 2vh;
-  top: 2rem;
+  margin-top: 1rem;
   padding: 1.5rem;
   opacity: 0.8;
-  height: 95vh;
+  height: 100vh;
   word-wrap: break-word;
   position: relative;
   text-align: center;
@@ -265,8 +266,8 @@ li {
 }
 
 .crypto {
-  padding-top: 1rem;
-  padding-bottom: 2rem;
+  /* padding-top: 1rem; */
+  padding-bottom: 1rem;
 }
 
 .paypalButton {
@@ -283,7 +284,11 @@ ul.about {
 }
 
 .footer {
-  padding: 1.5rem;
+  padding: 1rem;
+}
+
+.footerText {
+  margin-left: 12px;
 }
 
 .input-box {
@@ -366,4 +371,17 @@ ul.about {
 button[aria-label="Close"] {
   background-color: black !important;
   color: white;
+}
+
+.enumeration {
+  display: block;
+  margin-top: 3rem;
+  font-size: 1.5vh;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.reloadIcon {
+  margin-top: 1rem;
+  height: 40px;
 }

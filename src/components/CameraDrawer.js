@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Drawer from "react-motion-drawer";
 import infoIcon from "../assets/info.svg";
 import shareIcon from "../assets/share.svg";
+import reloadIcon from "../assets/reload.svg";
 import { RWebShare } from "react-web-share";
 
 class CameraDrawer extends PureComponent {
@@ -57,7 +58,7 @@ class CameraDrawer extends PureComponent {
           handleDrawer(false);
         }}
       >
-        {device.label}
+        {device.label || `camera0 ${index}`}
       </li>
     );
 
@@ -83,6 +84,17 @@ class CameraDrawer extends PureComponent {
             <ul className="item">
               {devices &&
                 devices.map((device, index) => listItem(device, index))}
+
+              {devices && !devices[0].label && (
+                <span
+                  onClick={() => window.location.reload()}
+                  className="enumeration"
+                >
+                  Please reload or press here to enumerate cameras correctly.
+                  <br />
+                  <img className="reloadIcon" src={reloadIcon} alt="reload" />
+                </span>
+              )}
             </ul>
             <ul className="menuFooter">
               <li

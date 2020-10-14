@@ -25,7 +25,7 @@ class App extends PureComponent {
       venue: null,
       text: null,
       permission: null,
-      loading: true,
+      loading: false,
     };
 
     this.handleVenue = this.handleVenue.bind(this);
@@ -34,13 +34,16 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    navigator.permissions.query({ name: "camera" }).then((result) => {
-      if (result.state === "granted") {
-      } else if (result.state === "prompt") {
-      } else if (result.state === "denied") {
-      }
-      this.setState({ permission: result.state, loading: false });
-    });
+    // Check for navigator.permissions as not supported on Safari
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: "camera" }).then((result) => {
+        if (result.state === "granted") {
+        } else if (result.state === "prompt") {
+        } else if (result.state === "denied") {
+        }
+        this.setState({ permission: result.state, loading: false });
+      });
+    }
   }
 
   handleVenue(venue) {
@@ -53,7 +56,6 @@ class App extends PureComponent {
   }
 
   handleSubmit(e) {
-    console.log("WHAT");
     e.preventDefault();
     this.setState({
       venue: this.state.text,
