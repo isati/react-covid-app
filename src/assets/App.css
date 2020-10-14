@@ -402,3 +402,9 @@ button[aria-label="Close"] {
   margin-top: 1rem;
   height: 40px;
 }
+
+.fakeLink {
+  color: #065cae;
+  text-decoration: underline;
+  font-weight: 600;
+}

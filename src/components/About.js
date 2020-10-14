@@ -72,7 +72,10 @@ const About = () => {
               <span role="img" aria-label="heart">
                 ❤️
               </span>{" "}
-              by sick.earth
+              by{" "}
+              <a alt="sick.earth" href="//sick.earth">
+                sick.earth
+              </a>
             </p>
             <div className="footer">
               <a

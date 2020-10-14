@@ -1,0 +1,7 @@
+{
+  "name": "NHS Covid-19",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

@@ -8,7 +8,7 @@ const Failure = ({ ...props }) => {
       <div className="successContainer">
         <div className="successWrapper">
           <p>
-            <img alt="Success" id="tickImg" src={crossIcon} />
+            <img alt="Failure" id="tickImg" src={crossIcon} />
           </p>
 
           <p className="success">QR code not recognised</p>
@@ -17,15 +17,7 @@ const Failure = ({ ...props }) => {
             It could be that you didn't scan an official NHS QR code or the code
             is damaged.
           </p>
-          <p
-            style={{
-              color: "#065CAE",
-              textDecoration: "underline",
-              fontWeight: "600",
-            }}
-          >
-            Help with venue check-in
-          </p>
+          <p className="fakeLink">Help with venue check-in</p>
           <p className="blurb">
             You may be trying to scan an invalid official NHS QR code or maybe
             this venue isn't recognised.
@@ -35,7 +27,6 @@ const Failure = ({ ...props }) => {
             <br />
             Speak to a member of staff for help.
           </p>
-          {/* <div style={{ height: "100%" }}>&nbsp;</div> */}
           <div className="bottomButtons">
             <p>
               <button

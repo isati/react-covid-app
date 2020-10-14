@@ -1,0 +1,11 @@
+{
+  "appId": "io.ionic.nhscovid19",
+  "appName": "NHS Covid-19",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "build",
+  "cordova": {},
+  "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh"
+
+}
+
