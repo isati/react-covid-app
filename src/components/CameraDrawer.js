@@ -34,7 +34,8 @@ class CameraDrawer extends PureComponent {
       selectCamera,
       openLeft,
       handleDrawer,
-      cameraId,
+      cameraLabel,
+      refreshDevices,
     } = this.props;
 
     let drawerStyle = {};
@@ -47,12 +48,12 @@ class CameraDrawer extends PureComponent {
     const listItem = (device, index) => (
       <li
         key={device.deviceId}
-        className={cameraId === device.deviceId ? "selectedCamera" : "camera"}
+        className={cameraLabel === device.label ? "selectedCamera" : "camera"}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
 
-          if (cameraId !== device.deviceId) {
+          if (cameraLabel !== device.label) {
             selectCamera(device.deviceId, devices);
           }
           handleDrawer(false);
@@ -86,10 +87,7 @@ class CameraDrawer extends PureComponent {
                 devices.map((device, index) => listItem(device, index))}
 
               {devices && !devices[0].label && (
-                <span
-                  onClick={() => window.location.reload()}
-                  className="enumeration"
-                >
+                <span onClick={refreshDevices} className="enumeration">
                   Please reload or press here to enumerate cameras correctly.
                   <br />
                   <img className="reloadIcon" src={reloadIcon} alt="reload" />

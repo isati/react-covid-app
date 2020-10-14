@@ -15,11 +15,12 @@ const previewStyle = {
 
 const options = {
   resolution: 800,
-  delay: 600,
+  delay: 300,
 };
 
 const QRReader = ({
   cameraId,
+  cameraLabel,
   handleError,
   handleScan,
   devices,
@@ -28,6 +29,7 @@ const QRReader = ({
   handleDrawer,
   setDevices,
   onLoadQRScanner,
+  refreshDevices,
 }) => (
   <React.Fragment>
     <img
@@ -59,13 +61,14 @@ const QRReader = ({
       className="overlay"
     ></div>
     <QRDescription />
-
     <CameraDrawer
       openLeft={openLeft}
       cameraId={cameraId}
+      cameraLabel={cameraLabel}
       devices={devices}
       selectCamera={selectCamera}
       handleDrawer={handleDrawer}
+      refreshDevices={refreshDevices}
     />
   </React.Fragment>
 );

@@ -1,13 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import TickIcon from "../assets/tick.png";
+import TickIcon from "../assets/tick.svg";
 import Slide from "react-reveal/Slide";
 import moment from "moment";
 
 const Success = ({ ...props }) => {
   const { venue, handleBack } = props;
   if (!venue) {
-    window.location.replace("/");
+    props.history.push("/");
   }
   return (
     <Slide bottom duration={300}>
@@ -29,7 +28,8 @@ const Success = ({ ...props }) => {
             automatically checked out at midnight or when you scan another
             official NHS QR code.
           </p>
-          <div onClick={handleBack}>
+
+          <div className="bottomButtons" onClick={handleBack}>
             <p>
               <button className="fakeButton" id="setText">
                 Back to home

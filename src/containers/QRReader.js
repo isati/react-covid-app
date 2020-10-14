@@ -9,6 +9,7 @@ class QRReader extends PureComponent {
 
     this.state = {
       cameraId: "",
+      cameraLabel: null,
       devices: null,
       loading: false,
       openLeft: false,
@@ -18,7 +19,8 @@ class QRReader extends PureComponent {
     this.handleDrawer = this.handleDrawer.bind(this);
     this.selectCamera = this.selectCamera.bind(this);
     this.setDevices = this.setDevices.bind(this);
-    // this.onLoadQRScanner = this.onLoadQRScanner.bind(this);
+    this.onLoadQRScanner = this.onLoadQRScanner.bind(this);
+    this.refreshDevices = this.refreshDevices.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +39,12 @@ class QRReader extends PureComponent {
     });
   }
 
+  refreshDevices() {
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      this.setDevices(devices);
+    });
+  }
+
   setDevices(devices) {
     const videoSelect = [];
 
@@ -45,6 +53,12 @@ class QRReader extends PureComponent {
         videoSelect.push(device);
       }
     });
+
+    // Go to text input if no video devices detected
+    if (!videoSelect.length) {
+      this.props.history.push("/input");
+    }
+
     videoSelect.sort(function (a, b) {
       if (a.label > b.label) {
         return 1;
@@ -65,19 +79,17 @@ class QRReader extends PureComponent {
   handleScan(result) {
     if (result && !result.startsWith("UKC19TRACING:")) {
       const urls = result.match(urlRegexSafe());
-      if (urls.length) {
+      if (urls && urls.length) {
         const confirm = window.confirm(
           `This is not an official NHS QR code, do you want to redirect to ${urls[0]}?`
         );
         if (confirm === true) {
           return (window.location.href = urls[0]);
         } else {
-          return;
+          return this.props.history.push("/failure");
         }
       }
-      return window.alert(
-        "This is not an official NHS QR code, please try again."
-      );
+      return this.props.history.push("/failure");
     }
     if (result) {
       this.props.handleVenue(jwt_decode(result).opn);
@@ -87,12 +99,19 @@ class QRReader extends PureComponent {
     console.error(err);
   }
 
-  // onLoadQRScanner(args) {
-  //   this.setState({ cameraId: args.deviceId });
-  // }
+  onLoadQRScanner(args) {
+    const { streamTrack } = args;
+
+    if (this.state.devices[0].label) {
+      const device = this.state.devices.filter(
+        (device) => device.label === streamTrack.label
+      );
+      this.setState({ cameraLabel: device[0].label });
+    }
+  }
 
   render() {
-    const { cameraId, devices, openLeft, loading } = this.state;
+    const { cameraId, cameraLabel, devices, openLeft, loading } = this.state;
 
     if (loading) {
       return "";
@@ -102,6 +121,7 @@ class QRReader extends PureComponent {
       return (
         <QRReaderLayout
           cameraId={cameraId}
+          cameraLabel={cameraLabel}
           handleError={this.handleError}
           handleDrawer={this.handleDrawer}
           handleScan={this.handleScan}
@@ -109,7 +129,8 @@ class QRReader extends PureComponent {
           setDevices={this.setDevices}
           devices={devices}
           openLeft={openLeft}
-          // onLoadQRScanner={this.onLoadQRScanner}
+          onLoadQRScanner={this.onLoadQRScanner}
+          refreshDevices={this.refreshDevices}
         />
       );
     }

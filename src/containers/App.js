@@ -1,10 +1,5 @@
 import React, { PureComponent } from "react";
-import {
-  Switch,
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
 
 import { createBrowserHistory } from "history";
 import "../assets/App.css";
@@ -12,7 +7,7 @@ import "../assets/App.css";
 import QRReader from "../containers/QRReader";
 import Success from "../components/Success";
 import About from "../components/About";
-
+import Failure from "../components/Failure";
 import InputForm from "../components/InputForm";
 
 const history = createBrowserHistory();
@@ -31,6 +26,7 @@ class App extends PureComponent {
     this.handleVenue = this.handleVenue.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBack = this.handleBack.bind(this);
   }
 
   componentDidMount() {
@@ -51,7 +47,7 @@ class App extends PureComponent {
   }
 
   handleBack() {
-    window.location.replace("/");
+    history.push("/");
     this.setState({ venue: null });
   }
 
@@ -71,8 +67,6 @@ class App extends PureComponent {
       return (
         <Router history={history}>
           <Switch>
-            <Route path="/about" component={About} />
-
             {this.state.venue && (
               <React.Fragment>
                 <Redirect from={"/input"} to="/success" />
@@ -106,6 +100,8 @@ class App extends PureComponent {
             {this.state.permission === "denied" && !this.state.venue && (
               <Redirect from={"/"} to="/input" />
             )}
+            <Route exact path="/about" component={About} />
+            <Route exact path="/failure" component={Failure} />
 
             <Route
               path="/"

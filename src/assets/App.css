@@ -8,10 +8,6 @@ body {
   background: black;
 }
 
-p {
-  /* text-align: center; */
-}
-
 h2 {
   font-size: 1.7rem;
   margin-left: 1rem;
@@ -25,10 +21,14 @@ a {
 
 button {
   cursor: pointer;
+  font-weight: 500;
+  height: 45px;
 }
 
 /* SUCCESS PAGE */
 .successContainer {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   height: 100vh;
   overflow: hidden;
@@ -38,11 +38,12 @@ button {
 }
 
 .successWrapper {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  /* justify-content: center; */
+  bottom: 0;
+  height: 100%;
+  margin-top: 100px;
+  /* -ms-transform: translateY(-50%); */
+  /* transform: translateY(-50%); */
 }
 .success {
   font-size: 2rem;
@@ -63,7 +64,7 @@ button {
   margin-top: 1rem;
 }
 .blurb {
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
   font-size: 1.2rem;
   padding-left: 7%;
   padding-right: 7%;
@@ -71,6 +72,12 @@ button {
 #tickImg {
   width: 25%;
   height: 25%;
+}
+
+.bottomButtons {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 .fakeButton {
   background-color: #0072ce;
@@ -80,15 +87,16 @@ button {
   display: inline-block;
   font-size: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 0.7rem 1rem;
   box-shadow: 1px 1px 4px #888;
 }
 .cancel {
   color: #0072ce;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 0.2rem 0;
+  font-weight: 500;
 }
 
 /* QR Reader */
@@ -103,15 +111,18 @@ video {
 
 .qrReaderDescription {
   color: rgba(255, 255, 255, 0.9);
-  padding-left: 2.5vh;
-  padding-right: 2.5vh;
   padding-top: 1vh;
-  /* margin-top: vh; */
-  /* margin-top: 2rem; */
+  width: 100%;
+  margin: 0 auto;
   text-align: center;
   position: absolute;
   top: 43vh;
   font-size: 1.1rem;
+}
+
+.descriptionText {
+  padding-left: 4vw;
+  padding-right: 4vw;
 }
 
 /* General */
@@ -121,7 +132,6 @@ video {
   left: 15px;
   z-index: 1000;
   height: 1.8rem;
-
   cursor: pointer;
 }
 
@@ -137,11 +147,17 @@ video {
 
 .shareIcon {
   margin-top: 5px;
-
   height: 2.3rem;
 }
 
 .githubIcon {
+  margin-left: 0.25rem;
+  height: 1.5rem;
+  vertical-align: middle;
+}
+
+.telegramIcon {
+  margin-right: 0.25rem;
   height: 1.5rem;
   vertical-align: middle;
 }
@@ -212,6 +228,7 @@ li {
 .about li {
   padding: 0px;
   margin-bottom: 1rem;
+  padding-right: 1rem;
 }
 
 .overlay {
