@@ -22,7 +22,7 @@ a {
 button {
   cursor: pointer;
   font-weight: 500;
-  height: 45px;
+  height: 5.5vh;
 }
 
 /* SUCCESS PAGE */
@@ -38,18 +38,18 @@ button {
 }
 
 .successWrapper {
-  /* justify-content: center; */
+  position: absolute;
   bottom: 0;
-  height: 100%;
-  margin-top: 100px;
-  /* -ms-transform: translateY(-50%); */
-  /* transform: translateY(-50%); */
+  width: 100%;
+  margin-bottom: 15vh;
 }
+
 .success {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
 .venue {
   font-size: 3rem;
   padding-left: 2rem;
@@ -58,27 +58,30 @@ button {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
 .time {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 1rem;
 }
+
 .blurb {
-  /* padding-top: 2rem; */
   font-size: 1.2rem;
   padding-left: 7%;
   padding-right: 7%;
 }
-#tickImg {
-  width: 25%;
-  height: 25%;
+
+.successIcon {
+  width: 12vh;
+  height: 12vh;
 }
 
 .bottomButtons {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
+
 .fakeButton {
   background-color: #0072ce;
   color: white;
@@ -91,6 +94,7 @@ button {
   padding: 0.7rem 1rem;
   box-shadow: 1px 1px 4px #888;
 }
+
 .cancel {
   color: #0072ce;
   text-align: center;
@@ -104,9 +108,8 @@ button {
 video {
   position: absolute;
   min-height: 100%;
-  /* top: -200px !important; */
   filter: brightness(0.4);
-  height: auto !important;
+  height: auto;
 }
 
 .qrReaderDescription {
@@ -164,37 +167,14 @@ video {
 
 .backArrowIcon {
   vertical-align: middle;
-
   height: 2.5rem;
 }
 
-.backButton {
-  position: relative;
-  top: 20px;
-  font-size: 2rem;
-  border: #ffffff;
-}
-
-/* The container must be positioned relative: */
-.custom-select {
-  top: 10;
-  padding-bottom: 50px;
-  position: relative;
-  font-family: Arial;
-}
-
-.custom-select select {
-  display: none; /*hide original SELECT element: */
-}
-
 .drawer {
-  /* color: white; */
   display: flex;
   height: 90%;
   opacity: 0.8;
   padding: 2rem;
-  /* font-size: 30px; */
-  /* text-align: center; */
   font-weight: bold;
   flex-direction: column;
   overflow: hidden;
@@ -202,8 +182,8 @@ video {
 
 ul {
   list-style: none;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   text-align: left;
 }
 
@@ -226,7 +206,7 @@ li {
 }
 
 .about li {
-  padding: 0px;
+  padding: 0;
   margin-bottom: 1rem;
   padding-right: 1rem;
 }
@@ -252,12 +232,9 @@ li {
   align-content: space-between;
 }
 
-.aboutContainer::-webkit-scrollbar {
-  display: none;
-}
 .aboutContainer {
   display: block;
-  overflow: auto !important;
+  overflow: auto;
   font-size: 2vh;
   margin-top: 1rem;
   padding: 1.5rem;
@@ -268,6 +245,10 @@ li {
   text-align: center;
 }
 
+.aboutContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .container {
   min-height: 100%;
   display: flex;
@@ -276,6 +257,7 @@ li {
   justify-content: space-between;
   align-content: space-between;
 }
+
 .item {
   flex: 0 0 auto;
   margin: 9px;
@@ -283,7 +265,6 @@ li {
 }
 
 .crypto {
-  /* padding-top: 1rem; */
   padding-bottom: 1rem;
 }
 
@@ -335,7 +316,6 @@ ul.about {
 
 .input-box .venue-box input {
   width: 90%;
-
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
@@ -345,6 +325,7 @@ ul.about {
   outline: none;
   background: transparent;
 }
+
 .input-box .venue-box label {
   position: absolute;
   top: 0;
@@ -374,7 +355,7 @@ ul.about {
 }
 
 .selectedCamera {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 .camera {
@@ -407,4 +388,5 @@ button[aria-label="Close"] {
   color: #065cae;
   text-decoration: underline;
   font-weight: 600;
+  font-size: 1.1rem;
 }

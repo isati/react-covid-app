@@ -8,7 +8,7 @@ const Failure = ({ ...props }) => {
       <div className="successContainer">
         <div className="successWrapper">
           <p>
-            <img alt="Failure" id="tickImg" src={crossIcon} />
+            <img alt="Failure" className="successIcon" src={crossIcon} />
           </p>
 
           <p className="success">QR code not recognised</p>

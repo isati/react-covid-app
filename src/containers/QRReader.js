@@ -24,9 +24,7 @@ class QRReader extends PureComponent {
   }
 
   componentDidMount() {
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      this.setDevices(devices);
-    });
+    this.refreshDevices();
   }
 
   selectCamera(cameraId) {

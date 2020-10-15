@@ -13,7 +13,7 @@ const Success = ({ ...props }) => {
       <div className="successContainer">
         <div className="successWrapper">
           <p>
-            <img alt="Success" id="tickImg" src={TickIcon} />
+            <img alt="Success" className="successIcon" src={TickIcon} />
           </p>
 
           <p className="success">Successful check-in</p>
