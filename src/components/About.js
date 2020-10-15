@@ -5,7 +5,7 @@ import closeIcon from "../assets/close.svg";
 import telegramIcon from "../assets/telegram.svg";
 import Bounce from "react-reveal/Bounce";
 
-const About = () => {
+const About = React.memo((props) => {
   return (
     <React.Fragment>
       <Link to="/" title="Menu">
@@ -108,6 +108,6 @@ const About = () => {
       </Bounce>
     </React.Fragment>
   );
-};
+});
 
 export default About;

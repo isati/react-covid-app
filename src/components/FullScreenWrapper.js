@@ -40,4 +40,4 @@ const FullScreenWrapper = () => {
   );
 };
 
-export default FullScreenWrapper;
+export default React.memo(FullScreenWrapper);

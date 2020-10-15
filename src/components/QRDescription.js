@@ -1,7 +1,7 @@
 import React from "react";
 import InfoIcon from "../assets/info.svg";
 
-const QRDescription = () => (
+const QRDescription = React.memo(() => (
   <div className="qrReaderDescription">
     <div className="descriptionText">
       <h2>Check in to a venue by scanning an official NHS QR code</h2>
@@ -17,6 +17,6 @@ const QRDescription = () => (
       </p>
     </div>
   </div>
-);
+));
 
 export default QRDescription;

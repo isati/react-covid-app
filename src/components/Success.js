@@ -3,7 +3,7 @@ import TickIcon from "../assets/tick.svg";
 import Slide from "react-reveal/Slide";
 import moment from "moment";
 
-const Success = ({ ...props }) => {
+const Success = React.memo(({ ...props }) => {
   const { venue, handleBack } = props;
   if (!venue) {
     props.history.push("/");
@@ -43,6 +43,6 @@ const Success = ({ ...props }) => {
       </div>
     </Slide>
   );
-};
+});
 
 export default Success;

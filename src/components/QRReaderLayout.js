@@ -18,59 +18,61 @@ const options = {
   delay: 300,
 };
 
-const QRReader = ({
-  cameraId,
-  cameraLabel,
-  handleError,
-  handleScan,
-  devices,
-  openLeft,
-  selectCamera,
-  handleDrawer,
-  setDevices,
-  onLoadQRScanner,
-  refreshDevices,
-}) => (
-  <React.Fragment>
-    <img
-      onClick={() => {
-        handleDrawer(true);
-      }}
-      className="closeIcon"
-      alt="Camera menu"
-      src={CloseIcon}
-    />
-    <QrReader
-      chosenCamera={cameraId}
-      className="qrReader"
-      delay={options.delay}
-      style={previewStyle}
-      onError={handleError}
-      onScan={handleScan}
-      resolution={options.resolution}
-      onLoad={onLoadQRScanner}
-      setDevices={setDevices}
-      showViewFinder={false}
-      selectCamera={selectCamera}
-    />
-    <div
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      className="overlay"
-    ></div>
-    <QRDescription />
-    <CameraDrawer
-      openLeft={openLeft}
-      cameraId={cameraId}
-      cameraLabel={cameraLabel}
-      devices={devices}
-      selectCamera={selectCamera}
-      handleDrawer={handleDrawer}
-      refreshDevices={refreshDevices}
-    />
-  </React.Fragment>
+const QRReader = React.memo(
+  ({
+    cameraId,
+    cameraLabel,
+    handleError,
+    handleScan,
+    devices,
+    openLeft,
+    selectCamera,
+    handleDrawer,
+    setDevices,
+    onLoadQRScanner,
+    refreshDevices,
+  }) => (
+    <React.Fragment>
+      <img
+        onClick={() => {
+          handleDrawer(true);
+        }}
+        className="closeIcon"
+        alt="Camera menu"
+        src={CloseIcon}
+      />
+      <QrReader
+        chosenCamera={cameraId}
+        className="qrReader"
+        delay={options.delay}
+        style={previewStyle}
+        onError={handleError}
+        onScan={handleScan}
+        resolution={options.resolution}
+        onLoad={onLoadQRScanner}
+        setDevices={setDevices}
+        showViewFinder={false}
+        selectCamera={selectCamera}
+      />
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        className="overlay"
+      ></div>
+      <QRDescription />
+      <CameraDrawer
+        openLeft={openLeft}
+        cameraId={cameraId}
+        cameraLabel={cameraLabel}
+        devices={devices}
+        selectCamera={selectCamera}
+        handleDrawer={handleDrawer}
+        refreshDevices={refreshDevices}
+      />
+    </React.Fragment>
+  )
 );
 
 export default QRReader;

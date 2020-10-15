@@ -145,12 +145,14 @@ video {
 }
 
 .aboutIcon {
-  height: 3rem;
+  height: 5vh;
 }
 
 .shareIcon {
   margin-top: 5px;
-  height: 2.3rem;
+  height: 4vh;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 .githubIcon {
@@ -233,7 +235,6 @@ li {
 }
 
 .aboutContainer {
-  display: block;
   overflow: auto;
   font-size: 2vh;
   margin-top: 1rem;
@@ -389,4 +390,8 @@ button[aria-label="Close"] {
   text-decoration: underline;
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+.divider {
+  padding: 1rem;
 }

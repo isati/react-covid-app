@@ -49,17 +49,14 @@ class CameraDrawer extends PureComponent {
       <li
         key={device.deviceId}
         className={cameraLabel === device.label ? "selectedCamera" : "camera"}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-
+        onClick={() => {
           if (cameraLabel !== device.label) {
             selectCamera(device.deviceId, devices);
           }
           handleDrawer(false);
         }}
       >
-        {device.label || `camera0 ${index}`}
+        {device.label || `Camera ${index}`}
       </li>
     );
 
@@ -96,9 +93,7 @@ class CameraDrawer extends PureComponent {
             </ul>
             <ul className="menuFooter">
               <li
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
+                onClick={() => {
                   handleDrawer(false);
                 }}
               >

@@ -2,7 +2,7 @@ import React from "react";
 import crossIcon from "../assets/cross.svg";
 import Slide from "react-reveal/Slide";
 
-const Failure = ({ ...props }) => {
+const Failure = React.memo(({ ...props }) => {
   return (
     <Slide bottom duration={300}>
       <div className="successContainer">
@@ -42,6 +42,6 @@ const Failure = ({ ...props }) => {
       </div>
     </Slide>
   );
-};
+});
 
 export default Failure;
