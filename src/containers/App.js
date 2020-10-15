@@ -67,7 +67,7 @@ class App extends PureComponent {
       return (
         <Router history={history}>
           <Switch>
-            <Route path="/changelog" component={Changelog} />
+            <Route exact path="/about" component={About} />
             {this.state.venue && (
               <React.Fragment>
                 <Redirect from={"/input"} to="/success" />
@@ -101,7 +101,7 @@ class App extends PureComponent {
             {this.state.permission === "denied" && !this.state.venue && (
               <Redirect from={"/"} to="/input" />
             )}
-            <Route exact path="/about" component={About} />
+
             <Route exact path="/failure" component={Failure} />
 
             <Route
