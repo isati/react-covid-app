@@ -9001,7 +9001,7 @@ react-update-popup@^1.0.1:
     axios "^0.20.0"
     swr "^0.3.2"
 
-react-web-share@^1.0.8:
+react-web-share@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/react-web-share/-/react-web-share-1.0.12.tgz#921444ce620844486072f70d64ccc35ad2681b79"
   integrity sha512-oUb/AR6/CjDtCXjc6dLCUqUwNwtBhJHamYC4+so+x3u76c9HYEY6YmwYGEGaQ12xGfY1QBiwlOw5+GHsEsY1cQ==

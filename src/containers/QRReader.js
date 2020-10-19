@@ -11,7 +11,7 @@ class QRReader extends PureComponent {
       cameraId: "",
       cameraLabel: null,
       devices: null,
-      loading: false,
+      loading: true,
       openLeft: false,
     };
 
@@ -67,7 +67,7 @@ class QRReader extends PureComponent {
       return 0;
     });
 
-    this.setState({ devices: videoSelect });
+    this.setState({ devices: videoSelect, loading: false });
   }
 
   handleDrawer(open) {

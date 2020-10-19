@@ -43,7 +43,6 @@ const QRReader = React.memo(
       />
       <QrReader
         chosenCamera={cameraId}
-        className="qrReader"
         delay={options.delay}
         style={previewStyle}
         onError={handleError}
