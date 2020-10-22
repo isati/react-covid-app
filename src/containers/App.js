@@ -20,7 +20,7 @@ class App extends PureComponent {
       venue: null,
       text: null,
       permission: null,
-      loading: true,
+      loading: false,
     };
 
     this.handleVenue = this.handleVenue.bind(this);

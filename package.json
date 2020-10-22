@@ -1,6 +1,6 @@
 {
-  "name": "NHSCovid19",
-  "version": "0.3.2",
+  "name": "covid1984",
+  "version": "0.3.4",
   "homepage": ".",
   "private": true,
   "dependencies": {

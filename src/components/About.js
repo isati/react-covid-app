@@ -28,43 +28,18 @@ const About = React.memo((props) => {
             </li>
           </ul>
           <div className="donate">
-            <h3>Please send donations/tips to: </h3>
-
-            <div className="crypto">
-              BTC: bc1qt54pz3ynwd2ucgf6ucffhx2c5qcfr967zzqevd
-            </div>
-            <div className="paypal">
-              Or via PayPal
-              <form
-                action="https://www.paypal.com/cgi-bin/webscr"
-                method="post"
-                target="_top"
+            This app is for demonstrative purposes only and is in no way
+            affiliated with or a representative of the NHS.
+            <p>
+              For discussion and support please join the{" "}
+              <a
+                href="https://t.me/joinchat/PAhGy0lzfjiogiZpVMcxOw"
+                alt="Telegram chat"
               >
-                <input type="hidden" name="cmd" value="_s-xclick" />
-                <input
-                  type="hidden"
-                  name="hosted_button_id"
-                  value="RMYC8SD4RYKV6"
-                />
-                <input
-                  type="image"
-                  src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif"
-                  border="0"
-                  name="submit"
-                  title="PayPal - The safer, easier way to pay online!"
-                  alt="Donate with PayPal button"
-                />
-                <img
-                  className="paypalButton"
-                  alt=""
-                  border="0"
-                  src="https://www.paypal.com/en_GB/i/scr/pixel.gif"
-                  width="1"
-                  height="1"
-                />
-              </form>
-            </div>
-            <p>Thank you.</p>
+                Telegram chat
+              </a>
+              .
+            </p>
           </div>
           <div>
             <p className="footerText">
@@ -90,7 +65,7 @@ const About = React.memo((props) => {
               </a>
               <a
                 title="Github"
-                href="https://github.com/isati/react-nhs-qr-app"
+                href="https://github.com/isati/react-covid1984-app"
               >
                 {" "}
                 <img
