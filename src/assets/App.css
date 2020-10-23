@@ -395,3 +395,9 @@ button[aria-label="Close"] {
 .divider {
   padding: 1rem;
 }
+
+.permissionWarning {
+  padding-top: 2rem;
+  text-align: center;
+  color: #444;
+}

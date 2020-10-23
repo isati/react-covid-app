@@ -7,6 +7,7 @@ import { RWebShare } from "react-web-share";
 const InputForm = React.memo(({ handleSubmit, handleChange, text }) => (
   <div className="input-box">
     <h2>Venue name</h2>
+
     <form onSubmit={handleSubmit}>
       <div className="venue-box">
         <input
@@ -38,6 +39,9 @@ const InputForm = React.memo(({ handleSubmit, handleChange, text }) => (
         </div>
       </div>
     </form>
+    <p className="permissionWarning">
+      Unexpectedly seeing this screen? Check your camera permissions.
+    </p>
   </div>
 ));
 

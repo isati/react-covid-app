@@ -9,7 +9,6 @@ import Success from "../components/Success";
 import About from "../components/About";
 import Failure from "../components/Failure";
 import InputForm from "../components/InputForm";
-// import Changelog from "../components/Changelog";
 const history = createBrowserHistory();
 
 class App extends PureComponent {

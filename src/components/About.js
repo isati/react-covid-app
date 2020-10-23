@@ -4,6 +4,31 @@ import githubIcon from "../assets/github.svg";
 import closeIcon from "../assets/close.svg";
 import telegramIcon from "../assets/telegram.svg";
 import Bounce from "react-reveal/Bounce";
+import { ToastContainer, toast, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const handleManifest = () => {
+  const dynamicManifest = {
+    name: "NHS Covid-19",
+    short_name: "NHS Covid-19",
+    description: "NHS Covid-19",
+    background_color: "#000000",
+    display: "standalone",
+    theme_color: "#0f4a73",
+    icons: [
+      {
+        src: "https://covid1984.sick.earth/logo-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+  };
+  const stringManifest = JSON.stringify(dynamicManifest);
+  const blob = new Blob([stringManifest], { type: "application/json" });
+  const manifestURL = URL.createObjectURL(blob);
+  document.querySelector("#manifest").setAttribute("href", manifestURL);
+  toast.dark(`Now choose "Add to homescreen"`);
+};
 
 const About = React.memo((props) => {
   return (
@@ -75,8 +100,16 @@ const About = React.memo((props) => {
                 />{" "}
               </a>
             </div>
-            <div className="versionNumber">
+            <div onClick={handleManifest} className="versionNumber">
               {`${process.env.REACT_APP_VERSION}`}
+              <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar
+                closeOnClick
+                transition={Flip}
+                closeButton={false}
+              />
             </div>
           </div>
         </div>
