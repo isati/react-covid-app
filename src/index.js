@@ -11,6 +11,7 @@ const dynamicManifest = {
   short_name: "Covid1984",
   description: "Covid1984",
   background_color: "#000000",
+  start_url: "https://covid1984.sick.earth/",
   theme_color: "#0f4a73",
   display: "standalone",
   icons: [
@@ -20,6 +21,11 @@ const dynamicManifest = {
       type: "image/png",
     },
   ],
+  permissions: {
+    "video-capture": {
+      description: "Required to capture video using getUserMedia()",
+    },
+  },
 };
 const stringManifest = JSON.stringify(dynamicManifest);
 const blob = new Blob([stringManifest], { type: "application/json" });
@@ -30,8 +36,10 @@ ReactDOM.render(
   <React.StrictMode>
     <FullScreenWrapper />
     <ToastContainer
+      enableMultiContainer
+      containerId={"update"}
       position="bottom-center"
-      // autoClose={3000}
+      autoClose={5000}
       hideProgressBar
       closeOnClick
       transition={Flip}
@@ -56,6 +64,7 @@ serviceWorker.register({
           toast.dark(
             `🔄 There is a new version of the app ready. Please reload to update.`,
             {
+              containerId: "update",
               onClose: () => window.location.reload(),
             }
           );

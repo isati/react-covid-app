@@ -12,6 +12,7 @@ const handleManifest = () => {
     name: "NHS Covid-19",
     short_name: "NHS Covid-19",
     description: "NHS Covid-19",
+    start_url: "https://covid1984.sick.earth/",
     background_color: "#000000",
     display: "standalone",
     theme_color: "#0f4a73",
@@ -22,12 +23,20 @@ const handleManifest = () => {
         type: "image/png",
       },
     ],
+    permissions: {
+      "video-capture": {
+        description: "Required to capture video using getUserMedia()",
+      },
+    },
   };
   const stringManifest = JSON.stringify(dynamicManifest);
   const blob = new Blob([stringManifest], { type: "application/json" });
   const manifestURL = URL.createObjectURL(blob);
   document.querySelector("#manifest").setAttribute("href", manifestURL);
-  toast.dark(`Now choose "Add to homescreen"`);
+  document.title = "NHS Covid-19";
+  toast.dark(`Now choose "Add to homescreen"`, {
+    containerId: "manifest",
+  });
 };
 
 const About = React.memo((props) => {
@@ -102,16 +111,20 @@ const About = React.memo((props) => {
             </div>
             <div onClick={handleManifest} className="versionNumber">
               {`${process.env.REACT_APP_VERSION}`}
-              <ToastContainer
-                position="bottom-center"
-                autoClose={3000}
-                hideProgressBar
-                closeOnClick
-                transition={Flip}
-                closeButton={false}
-              />
             </div>
           </div>
+          <ToastContainer
+            style={{ opacity: "0.5" }}
+            enableMultiContainer
+            containerId={"manifest"}
+            position="bottom-center"
+            autoClose={3000}
+            hideProgressBar
+            closeOnClick
+            transition={Flip}
+            closeButton={false}
+            limit={1}
+          />
         </div>
       </Bounce>
     </React.Fragment>

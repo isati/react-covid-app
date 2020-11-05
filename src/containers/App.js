@@ -9,6 +9,7 @@ import Success from "../components/Success";
 import About from "../components/About";
 import Failure from "../components/Failure";
 import InputForm from "../components/InputForm";
+
 const history = createBrowserHistory();
 
 class App extends PureComponent {
@@ -97,6 +98,7 @@ class App extends PureComponent {
               )}
             />
 
+            {/* Redirect to text input if no camera permission */}
             {this.state.permission === "denied" && !this.state.venue && (
               <Redirect from={"/"} to="/input" />
             )}

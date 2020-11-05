@@ -99,9 +99,9 @@ class CameraDrawer extends PureComponent {
               >
                 <RWebShare
                   data={{
-                    text: "NHS Covid-19",
-                    url: window.location.href,
-                    title: "NHS Covid-19",
+                    text: document.title,
+                    url: ".",
+                    title: document.title,
                   }}
                 >
                   <img alt="Share" className="shareIcon" src={shareIcon} />
