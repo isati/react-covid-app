@@ -11,12 +11,12 @@ const dynamicManifest = {
   short_name: "Covid1984",
   description: "Covid1984",
   background_color: "#000000",
-  start_url: "https://covid1984.sick.earth/",
+  start_url: window.location.origin,
   theme_color: "#0f4a73",
   display: "standalone",
   icons: [
     {
-      src: "https://covid1984.sick.earth/android-chrome-512x512.png",
+      src: `${window.location.origin}/android-chrome-512x512.png`,
       sizes: "512x512",
       type: "image/png",
     },

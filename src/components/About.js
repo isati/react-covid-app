@@ -12,13 +12,13 @@ const handleManifest = () => {
     name: "NHS Covid-19",
     short_name: "NHS Covid-19",
     description: "NHS Covid-19",
-    start_url: "https://covid1984.sick.earth/",
+    start_url: window.location.origin,
     background_color: "#000000",
     display: "standalone",
     theme_color: "#0f4a73",
     icons: [
       {
-        src: "https://covid1984.sick.earth/logo-chrome-512x512.png",
+        src: `${window.location.origin}/logo-chrome-512x512.png`,
         sizes: "512x512",
         type: "image/png",
       },
