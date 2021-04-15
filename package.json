@@ -1,20 +1,36 @@
 {
-  "name": "newwebapp",
-  "version": "0.1.0",
+  "name": "NHSCovid19",
+  "version": "0.4.5",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "@zxing/browser": "^0.0.8",
+    "@zxing/library": "^0.18.4",
+    "dayjs": "^1.10.4",
+    "jwt-decode": "^3.1.2",
+    "platform": "^1.3.6",
+    "react": "^16.14.0",
+    "react-device-detect": "^1.17.0",
+    "react-dom": "^16.14.0",
+    "react-full-screen": "^1.0.2",
+    "react-motion-drawer": "^3.1.0",
+    "react-qr-scanner": "^1.0.0-alpha.7",
+    "react-reveal": "^1.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.4",
+    "react-toastify": "^7.0.3",
+    "react-web-share": "^1.0.18",
+    "url-regex-safe": "^2.0.2",
+    "web-vitals": "^1.0.1",
+    "webrtc-adapter": "^7.7.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "HTTPS=true react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,5 +50,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.13.15",
+    "compression-webpack-plugin": "^6.0.5",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8",
+    "reflective-bind": "^0.2.4"
   }
 }
