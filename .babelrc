@@ -1,0 +1,40 @@
+{
+  "env": {
+    "production": {
+      "presets": [
+        ["@babel/env", { "loose": true }],
+        "@babel/preset-react",
+        "react-app"
+      ],
+      "plugins": [
+        ["reflective-bind/babel", { "log": "debug" }],
+        [
+          "babel-plugin-hoist-facc",
+          {
+            "loose": true,
+            "unsafeHoistInClass": true,
+            "warnIfCantHoist": false
+          }
+        ],
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "runtime": "automatic" // defaults to classic
+          }
+        ],
+        // "transform-inline-environment-variables",
+        "@babel/plugin-transform-modules-commonjs",
+        "@babel/plugin-transform-destructuring",
+        "@babel/plugin-transform-object-assign",
+        "@babel/transform-react-inline-elements",
+        "@babel/plugin-transform-react-pure-annotations",
+        "@babel/plugin-transform-runtime",
+        "tailcall-optimization",
+        // "babel-plugin-groundskeeper-willie"
+        "module:faster.js",
+        "object-to-json-parse",
+        "closure-elimination"
+      ]
+    }
+  }
+}

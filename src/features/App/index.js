@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Switch, Route, Router } from "react-router-dom";
 import QRReader from "../QRReader";
 import "../../assets/App.css";
@@ -15,19 +15,6 @@ const App = ({ history }) => {
     permission: null,
     loading: false,
   });
-
-  // useEffect(() => {
-  //   if (navigator) {
-  //     navigator.mediaDevices.getUserMedia({ video: true });
-  //     navigator.permissions.query({ name: "camera" }).then((result) => {
-  //       if (result.state === "granted") {
-  //       } else if (result.state === "prompt") {
-  //       } else if (result.state === "denied") {
-  //       }
-  //       setState({ permission: result.state, loading: false });
-  //     });
-  //   }
-  // }, []);
 
   const handleVenue = (venue) => {
     setState((prevState) => ({ ...prevState, venue }));

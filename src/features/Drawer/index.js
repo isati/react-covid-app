@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Drawer from "react-motion-drawer";
 import infoIcon from "../../assets/info.svg";
 import shareIcon from "../../assets/share.svg";
 import reloadIcon from "../../assets/reload.svg";
-import favouriteIcon from "../../assets/favorite.svg";
 import { RWebShare } from "react-web-share";
 import { toast } from "react-toastify";
 import { ReactComponent as FavouriteIcon } from "../../assets/favorite.svg";
@@ -43,6 +42,11 @@ const CameraDrawer = React.memo(
       console.error("Error parsing JSON: ", err);
     }
 
+    const drawerProps = {
+      overlayColor: "rgba(0,0,0,0.6)",
+      drawerStyle,
+    };
+
     const defaultCamera = localStorage.getItem("defaultCamera");
     const listItem = (device, index) => (
       <li
@@ -56,7 +60,6 @@ const CameraDrawer = React.memo(
         }}
       >
         {device.label || `Camera ${index}`}{" "}
-        {console.log(device.deviceId === defaultCamera)}
         <FavouriteIcon
           onClick={(e) => {
             // e.stopPropagation();
@@ -76,11 +79,6 @@ const CameraDrawer = React.memo(
         />
       </li>
     );
-
-    const drawerProps = {
-      overlayColor: "rgba(0,0,0,0.6)",
-      drawerStyle,
-    };
 
     return (
       <Drawer

@@ -93,7 +93,7 @@ const QRReader = React.memo(({ history, handleVenue }) => {
   };
 
   const refreshDevices = async () => {
-    return await navigator.mediaDevices.enumerateDevices().then((devices) => {
+    return navigator.mediaDevices.enumerateDevices().then((devices) => {
       setDevices(devices);
     });
   };

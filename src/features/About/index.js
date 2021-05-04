@@ -4,7 +4,7 @@ import githubIcon from "../../assets/github.svg";
 import closeIcon from "../../assets/close.svg";
 import telegramIcon from "../../assets/telegram.svg";
 import Bounce from "react-reveal/Bounce";
-import { ToastContainer, toast, Flip } from "react-toastify";
+import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const About = (props) => {

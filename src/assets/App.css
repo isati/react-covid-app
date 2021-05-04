@@ -32,13 +32,31 @@ button {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  background: white !important;
-  color: black;
+  background: hsl(0, 100%, 100%) 100%;
+  background: -moz-linear-gradient(
+    top,
+    hsl(0, 100%, 100%) 0%,
+    hsl(0, 100%, 100%) 100%
+  );
+  background: -webkit-linear-gradient(
+    top,
+    hsl(0, 100%, 100%) 0%,
+    hsl(0, 100%, 100%) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    hsl(0, 100%, 100%) 0%,
+    hsl(0, 100%, 100%) 100%
+  );
+  /* color: rgb(0, 0, 0) !important; */
+
+  /* -webkit-text-fill-color: rgb(0, 0, 0) !important; */
   text-align: center;
 }
 
 .successWrapper {
   position: absolute;
+  /* color: hsla(0, 0%, 0%, 1) !important; */
   bottom: 0;
   width: 100%;
   margin-bottom: 15vh;
@@ -48,6 +66,9 @@ button {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  /* mix-blend-mode: difference; */
+  /* color: hsla(0, 0%, 0%, 1); */
+  /* -webkit-text-fill-color: hsla(0, 0%, 0%, 1); */
 }
 
 .venue {
@@ -57,18 +78,32 @@ button {
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  /* color: hsla(0, 0%, 0%, 1); */
+
+  /* -webkit-text-fill-color: hsla(0, 0%, 0%, 1); */
+  /* mix-blend-mode: difference; */
 }
 
 .time {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 1rem;
+  /* -webkit-text-fill-color: rgb(0, 0, 0) !important; */
+  /* mix-blend-mode: difference; */
 }
 
 .blurb {
+  /* -webkit-text-fill-color: rgb(0, 0, 0) !important; */
+  /* mix-blend-mode: difference; */
   font-size: 1.2rem;
   padding-left: 7%;
   padding-right: 7%;
+}
+
+.textWrapper {
+  color: hsla(0, 0%, 0%, 1);
+  -webkit-text-fill-color: hsla(0, 0%, 0%, 1);
+  /* mix-blend-mode: darken; */
 }
 
 .successIcon {
@@ -83,7 +118,22 @@ button {
 }
 
 .fakeButton {
-  background-color: #0072ce;
+  background: -moz-linear-gradient(
+    top,
+    hsla(207, 100%, 40%, 1),
+    hsla(207, 100%, 40%, 1)
+  );
+  background: -webkit-linear-gradient(
+    top,
+    hsla(207, 100%, 40%, 1),
+    hsla(207, 100%, 40%, 1)
+  );
+  background: linear-gradient(
+    to bottom,
+    hsla(207, 100%, 40%, 1),
+    hsla(207, 100%, 40%, 1)
+  );
+  background-color: hsla(207, 100%, 40%, 1);
   color: white;
   width: 80%;
   text-decoration: none;
@@ -219,12 +269,28 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 1);
+  background: hsl(0, 0%, 100%) 100%;
+  background: -moz-linear-gradient(
+    top,
+    hsl(0, 0%, 100%) 0%,
+    hsl(0, 0%, 100%) 100%
+  );
+  background: -webkit-linear-gradient(
+    top,
+    hsl(0, 100%, 100%) 0%,
+    hsl(0, 100%, 100%) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    hsl(0, 100%, 100%) 0%,
+    hsl(0, 100%, 100%) 100%
+  );
   color: white;
   font-weight: 600;
   margin: auto;
   margin-top: 3rem;
   mix-blend-mode: overlay;
+  /* filter: invert(100%); */
   text-align: center;
 }
 
@@ -418,9 +484,4 @@ button[aria-label="Close"] {
   /* margin-top: 3rem; */
   /* mix-blend-mode: overlay; */
   text-align: center;
-}
-
-.favouriteIcon #polygon4 {
-  fill: pink !important;
-  color: pink !important;
 }
