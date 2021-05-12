@@ -15,7 +15,7 @@
    xml:space="preserve"
    id="svg12"
    sodipodi:docname="cross.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><defs
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"><defs
    id="defs16" /><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
@@ -35,21 +35,22 @@
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="0"
-   inkscape:current-layer="svg12" />
+   inkscape:current-layer="svg12"
+   inkscape:document-rotation="0" />
 <metadata
    id="metadata2"> Svg Vector Icons : http://www.onlinewebfonts.com/icon <rdf:RDF><cc:Work
      rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
        rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata>
 <g
    id="g10"
-   style="stroke:none;stroke-opacity:1;fill:#d5281a;fill-opacity:1"><g
+   style="stroke:none;stroke-opacity:1;fill:#ff0000;fill-opacity:1"><g
      transform="translate(0.000000,502.000000) scale(0.100000,-0.100000)"
      id="g8"
-     style="stroke:none;stroke-opacity:1;fill:#d5281a;fill-opacity:1"><path
+     style="stroke:none;stroke-opacity:1;fill:#ff0000;fill-opacity:1"><path
        d="M4719.5,4914.6c-1030.2-68.4-1995.8-441.8-2795.3-1079C952.8,3061.5,315.5,1929.7,133.7,655.2c-45-318.6-45-952,0-1270.6C290.1-1714,763.1-2671.8,1531.4-3441.9c385.1-385.1,776-664.6,1292.1-922.6c928.5-467.2,1968.4-619.7,3010.3-441.8c774.1,131,1540.3,471.1,2187.4,971.5c217,166.2,660.7,611.8,826.8,824.9c502.4,650.9,828.8,1376.1,973.5,2154.1c187.7,1026.2,37.1,2089.6-430,3035.7C8674,3634.2,7297.9,4637,5700.8,4865.7C5438.9,4904.8,4934.6,4928.3,4719.5,4914.6z M5403.7,4533.4C7077,4380.9,8533.3,3311.7,9184.2,1755.7c574.7-1370.3,424.2-2971.2-392.9-4212.5C7518.7-4390,5024.5-5062.4,2962.2-4026.4c-449.6,224.8-785.8,471.1-1165,850.3c-406.6,404.6-647,742.8-891.4,1251C10.6-62.2,499.3,2168.2,2098.2,3501.3c502.4,420.3,1135.7,744.8,1765.1,905C4375.5,4537.3,4893.5,4580.3,5403.7,4533.4z"
        id="path4"
-       style="stroke:none;stroke-opacity:1;fill:#d5281a;fill-opacity:1" /><path
+       style="stroke:none;stroke-opacity:1;fill:#ff0000;fill-opacity:1" /><path
        d="M3167.5,1835.9c-35.2-39.1-50.8-82.1-50.8-131c0-66.5,41-111.4,805.4-877.7l807.3-807.3L3922-787.4c-733-735-805.4-811.2-805.4-869.9c0-127.1,66.5-197.4,185.7-199.4c76.2,0,89.9,13.7,883.5,805.4L4993.2-244l807.3-807.3l807.3-805.4h82.1c115.3,0,179.8,64.5,179.8,179.8v82.1l-805.4,807.3L5257.1,19.9l807.3,807.3l805.4,807.3v82.1c0,115.3-64.5,179.8-179.8,179.8h-82.1l-807.3-805.4l-807.3-807.3l-807.3,807.3c-801.4,801.4-807.3,805.4-887.5,805.4C3232,1896.5,3208.5,1884.7,3167.5,1835.9z"
        id="path6"
-       style="stroke:none;stroke-opacity:1;fill:#d5281a;fill-opacity:1" /></g></g>
+       style="stroke:none;stroke-opacity:1;fill:#ff0000;fill-opacity:1" /></g></g>
 </svg>

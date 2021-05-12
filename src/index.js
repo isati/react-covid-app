@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createBrowserHistory } from "history";
-
+// import { defineCustomElements } from "@ionic/pwa-elements/loader";
 const history = createBrowserHistory();
 
 ReactDOM.render(
@@ -25,6 +25,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+// defineCustomElements(window);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

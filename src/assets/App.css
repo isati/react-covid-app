@@ -1,7 +1,7 @@
 html,
 body {
   font-size: 2vh;
-  color: white;
+  color: black;
   margin: 0;
   height: 100%;
   overflow: hidden;
@@ -16,7 +16,7 @@ h2 {
 
 a {
   text-decoration: none;
-  color: orange;
+  color: #0084ff;
 }
 
 button {
@@ -101,6 +101,8 @@ button {
 }
 
 .textWrapper {
+  padding-left: 1rem;
+  padding-right: 1rem;
   color: hsla(0, 0%, 0%, 1);
   -webkit-text-fill-color: hsla(0, 0%, 0%, 1);
   /* mix-blend-mode: darken; */
@@ -142,7 +144,7 @@ button {
   border: none;
   border-radius: 3px;
   margin-bottom: 2rem;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
   box-shadow: 1px 1px 4px #888;
 }
 
@@ -309,6 +311,7 @@ li {
   word-wrap: break-word;
   position: relative;
   text-align: center;
+  color: white;
 }
 
 .aboutContainer::-webkit-scrollbar {
@@ -421,10 +424,12 @@ ul.about {
 }
 
 .selectedCamera {
+  color: white;
   opacity: 1;
 }
 
 .camera {
+  color: white;
   opacity: 0.5;
 }
 

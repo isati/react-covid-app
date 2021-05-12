@@ -8,6 +8,9 @@ const Success = ({ venue, handleBack, history }) => {
   const textWrapper = document.getElementsByClassName("textWrapper");
   const cancelText = document.getElementsByClassName("cancel");
   const fakeButton = document.getElementsByClassName("fakeButton");
+
+  const { state } = history.location;
+
   useEffect(() => {
     if (platform.name === "Samsung Internet") {
       if (textWrapper && cancelText) {
@@ -18,7 +21,9 @@ const Success = ({ venue, handleBack, history }) => {
         }, 400);
       }
     }
-  }, [textWrapper, cancelText]);
+  }, [textWrapper, cancelText, fakeButton]);
+
+  console.log(state);
 
   return (
     <Slide bottom duration={300}>
@@ -29,10 +34,12 @@ const Success = ({ venue, handleBack, history }) => {
           </p>
 
           <div className="textWrapper">
-            <p className="success">Thank you for checking in to {venue} </p>
+            <p className="success">
+              Thank you for checking in to {state?.venue || venue}{" "}
+            </p>
 
             <p className="time" id="time">
-              {dayjs(new Date()).format("DD MMM YYYY, HH:mm")}
+              {state?.time || dayjs(new Date()).format("DD MMM YYYY, HH:mm")}
             </p>
             <p className="blurb">
               The app is the fastest way to be alerted of potential exposure to

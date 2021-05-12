@@ -29,6 +29,7 @@
         "@babel/transform-react-inline-elements",
         "@babel/plugin-transform-react-pure-annotations",
         "@babel/plugin-transform-runtime",
+        "@babel/plugin-proposal-class-properties",
         "tailcall-optimization",
         // "babel-plugin-groundskeeper-willie"
         "module:faster.js",

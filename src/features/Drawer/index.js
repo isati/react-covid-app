@@ -1,139 +1,267 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Drawer from "react-motion-drawer";
 import infoIcon from "../../assets/info.svg";
 import shareIcon from "../../assets/share.svg";
 import reloadIcon from "../../assets/reload.svg";
+import scannerIcon from "../../assets/scanner.svg";
+import textInputIcon from "../../assets/textinput.svg";
+import historyIcon from "../../assets/history.svg";
+import deleteIcon from "../../assets/delete.svg";
+import CameraIcon from "../../assets/camera.svg";
+
 import { RWebShare } from "react-web-share";
 import { toast } from "react-toastify";
+import {
+  MenuItem,
+  MenuList,
+  ListItemIcon,
+  Typography,
+  SwipeableDrawer,
+  Divider,
+} from "@material-ui/core";
 import { ReactComponent as FavouriteIcon } from "../../assets/favorite.svg";
-
 const CameraDrawer = React.memo(
   ({
+    lastCheckIn,
     devices,
     selectCamera,
-    openLeft,
+    menuOpen,
     handleDrawer,
     cameraLabel,
     refreshDevices,
   }) => {
-    const state = {
-      drawerStyle: `
-                  {
-                    "background": "#000000",
-                    "boxShadow": "rgba(0, 0, 0, 0.188235) 0px 10px 20px, rgba(0, 0, 0, 0.227451) 0px 6px 6px"
-                  }`,
-      noTouchOpen: false,
-      noTouchClose: false,
-      width: "90%",
-    };
-
-    const {
-      noTouchClose,
-      noTouchOpen,
-      width,
-      drawerStyle: stringDrawerStyle,
-    } = state;
-
-    let drawerStyle = {};
-    try {
-      drawerStyle = JSON.parse(stringDrawerStyle);
-    } catch (err) {
-      console.error("Error parsing JSON: ", err);
-    }
-
-    const drawerProps = {
-      overlayColor: "rgba(0,0,0,0.6)",
-      drawerStyle,
-    };
-
     const defaultCamera = localStorage.getItem("defaultCamera");
     const listItem = (device, index) => (
-      <li
-        key={device.deviceId}
-        className={cameraLabel === device.label ? "selectedCamera" : "camera"}
-        onClick={() => {
-          if (cameraLabel !== device.label) {
-            selectCamera(device.deviceId, devices);
-          }
-          handleDrawer(false);
-        }}
-      >
-        {device.label || `Camera ${index}`}{" "}
-        <FavouriteIcon
-          onClick={(e) => {
-            // e.stopPropagation();
-            localStorage.setItem("defaultCamera", device.deviceId);
-            toast.dark(`${device.label} selected as default camera`, {
-              containerId: "update",
-            });
+      <Link key={device.deviceId} to="/">
+        <MenuItem
+          style={{ color: "white" }}
+          className={cameraLabel === device.label ? "selectedCamera" : "camera"}
+          onClick={() => {
+            if (cameraLabel !== device.label) {
+              selectCamera(device.deviceId, devices);
+            }
             handleDrawer(false);
           }}
-          className="favouriteIcon"
-          fill={device.deviceId === defaultCamera ? "orange" : "grey"}
-          style={{
-            height: "15px",
-            verticalAlign: "middle",
-            padding: "0.5rem",
-          }}
-        />
-      </li>
+        >
+          <ListItemIcon>
+            <FavouriteIcon
+              onClick={(e) => {
+                localStorage.setItem("defaultCamera", device.deviceId);
+                toast.dark(`${device.label} selected as default camera`, {
+                  containerId: "update",
+                });
+                handleDrawer(false);
+              }}
+              className="favouriteIcon"
+              fill={device.deviceId === defaultCamera ? "orange" : "grey"}
+              style={{
+                height: 25,
+                verticalAlign: "middle",
+              }}
+            />
+          </ListItemIcon>
+          {device.label || `Camera ${index}`}{" "}
+        </MenuItem>
+      </Link>
     );
 
-    return (
-      <Drawer
-        {...drawerProps}
-        width={width}
-        fadeOut
-        open={openLeft}
-        onChange={(open) => handleDrawer(open)}
-        noTouchOpen={noTouchOpen}
-        noTouchClose={noTouchClose}
-        drawerStyle={drawerStyle}
-      >
-        <div className="drawer" style={{ padding: "1rem" }}>
-          <h3>Camera</h3>
-          <div className="container">
-            <ul className="item">
-              {devices &&
-                devices.map((device, index) => listItem(device, index))}
-              {devices && !devices[0].label && (
-                <span onClick={refreshDevices} className="enumeration">
-                  Please reload or press here to enumerate cameras correctly.
-                  <br />
-                  <img className="reloadIcon" src={reloadIcon} alt="reload" />
-                </span>
-              )}
-              <span className="enumeration">
-                Press the favourite icon to select camera as default
-              </span>
-            </ul>
+    const menuItemStyle = {
+      color: "white",
+    };
 
-            <ul className="menuFooter">
-              <li
-                onClick={() => {
-                  handleDrawer(false);
+    return (
+      <SwipeableDrawer
+        PaperProps={{
+          style: {
+            borderRight: 0,
+            boxShadow: "10px 0px 20px rgba(0, 0, 0, 0.5)",
+          },
+        }}
+        anchor="left"
+        open={menuOpen}
+        onOpen={() => handleDrawer(true)}
+        onClose={() => handleDrawer(false)}
+      >
+        <MenuList
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            overflow: "hidden",
+            backgroundColor: "black",
+            paddingRight: "1rem",
+          }}
+        >
+          <div style={{ marginBottom: "0.5rem" }}>
+            <MenuItem style={menuItemStyle}>
+              <ListItemIcon>
+                <img
+                  style={{ height: 25, verticalAlign: "sub" }}
+                  alt="About"
+                  src={CameraIcon}
+                />
+              </ListItemIcon>
+              <Typography>
+                <strong>Camera select</strong>
+              </Typography>
+            </MenuItem>
+          </div>
+          {devices && devices.map((device, index) => listItem(device, index))}
+          {devices && !devices[0].label && (
+            <span onClick={refreshDevices} className="enumeration">
+              Please reload or press here to enumerate cameras correctly.
+              <br />
+              <img className="reloadIcon" src={reloadIcon} alt="reload" />
+            </span>
+          )}
+          <div style={{ flexGrow: 1 }} />
+          {lastCheckIn && (
+            <div>
+              <Link
+                to={{
+                  pathname: "/success",
+                  state: lastCheckIn,
                 }}
               >
-                <RWebShare
-                  data={{
-                    text: document.title,
-                    url: ".",
-                    title: document.title,
+                <MenuItem
+                  onClick={() => {
+                    handleDrawer(false);
                   }}
+                  style={menuItemStyle}
                 >
-                  <img alt="Share" className="shareIcon" src={shareIcon} />
-                </RWebShare>
-              </li>
-              <Link to="/about">
-                <li>
-                  <img className="aboutIcon" alt="About" src={infoIcon} />
-                </li>
+                  <ListItemIcon>
+                    <img
+                      style={{ height: 25, verticalAlign: "sub" }}
+                      alt="Last check-in"
+                      src={historyIcon}
+                    />
+                  </ListItemIcon>
+                  <Typography>Last Check-in</Typography>
+                  <div style={{ flexGrow: 1 }} />
+                  <ListItemIcon
+                    style={{ justifyContent: "flex-end" }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toast.dark(`Deleted last check-in`, {
+                        containerId: "update",
+                      });
+                      handleDrawer(false);
+                      localStorage.removeItem("lastCheckIn");
+                    }}
+                  >
+                    <img
+                      style={{ height: 20, verticalAlign: "middle" }}
+                      alt="Delete"
+                      src={deleteIcon}
+                    />
+                  </ListItemIcon>
+                </MenuItem>
               </Link>
-            </ul>
-          </div>
-        </div>
-      </Drawer>
+
+              <Divider
+                variant="inset"
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  marginBottom: "0.5rem",
+                  marginTop: "0.5rem",
+                }}
+              />
+            </div>
+          )}
+          <Link to="/">
+            <MenuItem
+              onClick={() => {
+                handleDrawer(false);
+              }}
+              style={menuItemStyle}
+            >
+              <ListItemIcon>
+                <img
+                  style={{ height: 25, verticalAlign: "sub" }}
+                  alt="About"
+                  src={scannerIcon}
+                />
+              </ListItemIcon>
+              <Typography>Scanner</Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/input">
+            <MenuItem
+              onClick={() => {
+                handleDrawer(false);
+              }}
+              style={menuItemStyle}
+            >
+              <ListItemIcon>
+                <img
+                  style={{ height: 25, verticalAlign: "sub" }}
+                  alt="About"
+                  src={textInputIcon}
+                />
+              </ListItemIcon>
+              <Typography>Text Input</Typography>
+            </MenuItem>
+          </Link>
+          {/* 
+          <MenuItem
+            onClick={() => {
+              toggleTorch();
+              handleDrawer(false);
+            }}
+            style={menuItemStyle}
+          >
+            <ListItemIcon>
+              <img
+                style={{ height: 25, verticalAlign: "sub" }}
+                alt="About"
+                src={torchIcon}
+              />
+            </ListItemIcon>
+            <Typography>Torch</Typography>
+          </MenuItem> */}
+          <RWebShare
+            data={{
+              text: document.title,
+              url: ".",
+              title: document.title,
+            }}
+          >
+            <MenuItem
+              // onClick={() => handleDrawer(false)}
+              style={menuItemStyle}
+            >
+              <ListItemIcon>
+                <img
+                  style={{ height: 25, verticalAlign: "sub" }}
+                  alt="About"
+                  src={shareIcon}
+                />
+              </ListItemIcon>
+              <Typography>Share</Typography>
+            </MenuItem>
+          </RWebShare>
+          <Link to="/about">
+            <MenuItem
+              onClick={() => {
+                handleDrawer(false);
+              }}
+              style={{
+                color: "white",
+              }}
+            >
+              <ListItemIcon>
+                <img
+                  style={{ height: 25, verticalAlign: "sub" }}
+                  alt="About"
+                  src={infoIcon}
+                />
+              </ListItemIcon>
+              <Typography>About</Typography>
+            </MenuItem>
+          </Link>
+        </MenuList>
+      </SwipeableDrawer>
     );
   }
 );

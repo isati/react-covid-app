@@ -7,12 +7,15 @@ import Bounce from "react-reveal/Bounce";
 import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const About = (props) => {
+const About = React.memo(({ handleDrawer }) => {
   return (
     <>
-      <Link to="/" title="Menu">
-        <img className="closeIcon" alt="Camera menu" src={closeIcon} />
-      </Link>
+      <img
+        onClick={() => handleDrawer()}
+        className="closeIcon"
+        alt="Camera menu"
+        src={closeIcon}
+      />
       <Bounce bottom>
         <div className="aboutContainer">
           <ul className="about">
@@ -31,7 +34,7 @@ const About = (props) => {
           </ul>
           <div className="donate">
             This app is for demonstrative purposes only and is in no way
-            affiliated with or a representative of the NHS.
+            affiliated with or representative of the NHS.
             <p>
               For discussion and support please join the{" "}
               <a
@@ -97,6 +100,6 @@ const About = (props) => {
       </Bounce>
     </>
   );
-};
+});
 
 export default About;

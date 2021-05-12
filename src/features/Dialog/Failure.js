@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import crossIcon from "../../assets/cross.svg";
 import Slide from "react-reveal/Slide";
+import platform from "platform";
 
 const Failure = React.memo((props) => {
+  const textWrapper = document.getElementsByClassName("textWrapper");
+  const cancelText = document.getElementsByClassName("cancel");
+  const fakeButton = document.getElementsByClassName("fakeButton");
+
+  useEffect(() => {
+    if (platform.name === "Samsung Internet") {
+      if (textWrapper && cancelText) {
+        setTimeout(() => {
+          textWrapper[0].style.color = "unset";
+          cancelText[0].style.color = "hsla(207, 100%, 40%, 1)";
+          fakeButton[0].style.background = " hsla(207, 100%, 40%, 1)";
+        }, 400);
+      }
+    }
+  }, [textWrapper, cancelText, fakeButton]);
+
   return (
     <Slide bottom duration={300}>
       <div className="successContainer">
