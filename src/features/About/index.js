@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import githubIcon from "../../assets/github.svg";
 import closeIcon from "../../assets/close.svg";
 import telegramIcon from "../../assets/telegram.svg";
-import Bounce from "react-reveal/Bounce";
-import { ToastContainer, Flip } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Slide } from "@material-ui/core";
 
 const About = React.memo(({ handleDrawer }) => {
   return (
@@ -16,7 +14,7 @@ const About = React.memo(({ handleDrawer }) => {
         alt="Camera menu"
         src={closeIcon}
       />
-      <Bounce bottom>
+      <Slide in direction="up">
         <div className="aboutContainer">
           <ul className="about">
             <li>Does not collect or send any data.</li>
@@ -25,7 +23,10 @@ const About = React.memo(({ handleDrawer }) => {
               Choose "Add to Homescreen" in browser for a more app-like
               experience.
             </li>
-            <li>Double tap outside the viewport area to enter fullscreen.</li>
+            <li>
+              Double tap outside the viewport area to enter fullscreen, single
+              tap to exit.
+            </li>
             <li>
               App will present a text input field if no cameras detected or
               camera permission denied. Can also be accessed via{" "}
@@ -84,20 +85,8 @@ const About = React.memo(({ handleDrawer }) => {
               {`${process.env.REACT_APP_VERSION}`}
             </div>
           </div>
-          <ToastContainer
-            style={{ opacity: "0.5" }}
-            enableMultiContainer
-            containerId={"toast"}
-            position="bottom-center"
-            autoClose={3000}
-            hideProgressBar
-            closeOnClick
-            transition={Flip}
-            closeButton={false}
-            limit={1}
-          />
         </div>
-      </Bounce>
+      </Slide>
     </>
   );
 });

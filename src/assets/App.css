@@ -103,9 +103,11 @@ button {
 .textWrapper {
   padding-left: 1rem;
   padding-right: 1rem;
-  color: hsla(0, 0%, 0%, 1);
-  -webkit-text-fill-color: hsla(0, 0%, 0%, 1);
-  /* mix-blend-mode: darken; */
+  /* color: hsla(0, 0%, 0%, 1) !important; */
+  /* -webkit-text-fill-color: hsla(0, 0%, 0%, 1) !important; */
+  mix-blend-mode: difference;
+  color: white;
+  /* filter: invert(1); */
 }
 
 .successIcon {
@@ -184,7 +186,7 @@ video {
   position: absolute;
   top: 10px;
   left: 15px;
-  z-index: 1000;
+  z-index: 1200;
   height: 1.8rem;
   cursor: pointer;
 }
@@ -456,7 +458,7 @@ button[aria-label="Close"] {
 }
 
 .fakeLink {
-  color: #065cae;
+  color: hsla(206, 99%, 38%, 1);
   text-decoration: underline;
   font-weight: 600;
   font-size: 1.1rem;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import infoIcon from "../../assets/info.svg";
 import shareIcon from "../../assets/share.svg";
 import reloadIcon from "../../assets/reload.svg";
@@ -8,9 +9,7 @@ import textInputIcon from "../../assets/textinput.svg";
 import historyIcon from "../../assets/history.svg";
 import deleteIcon from "../../assets/delete.svg";
 import CameraIcon from "../../assets/camera.svg";
-
 import { RWebShare } from "react-web-share";
-import { toast } from "react-toastify";
 import {
   MenuItem,
   MenuList,
@@ -20,6 +19,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import { ReactComponent as FavouriteIcon } from "../../assets/favorite.svg";
+
 const CameraDrawer = React.memo(
   ({
     lastCheckIn,
@@ -29,8 +29,11 @@ const CameraDrawer = React.memo(
     handleDrawer,
     cameraLabel,
     refreshDevices,
+    defaultCamera,
   }) => {
-    const defaultCamera = localStorage.getItem("defaultCamera");
+    // const defaultCamera = localStorage.getItem("defaultCamera");
+    const { enqueueSnackbar } = useSnackbar();
+
     const listItem = (device, index) => (
       <Link key={device.deviceId} to="/">
         <MenuItem
@@ -46,11 +49,24 @@ const CameraDrawer = React.memo(
           <ListItemIcon>
             <FavouriteIcon
               onClick={(e) => {
-                localStorage.setItem("defaultCamera", device.deviceId);
-                toast.dark(`${device.label} selected as default camera`, {
-                  containerId: "update",
-                });
-                handleDrawer(false);
+                if (device.deviceId !== defaultCamera) {
+                  localStorage.setItem("defaultCamera", device.deviceId);
+                  enqueueSnackbar(
+                    `${device.label} selected as default camera`,
+                    {
+                      variant: "success",
+                      autoHideDuration: 3000,
+                    }
+                  );
+                  return;
+                }
+                enqueueSnackbar(
+                  `${device.label} already selected as default camera`,
+                  {
+                    variant: "info",
+                    autoHideDuration: 3000,
+                  }
+                );
               }}
               className="favouriteIcon"
               fill={device.deviceId === defaultCamera ? "orange" : "grey"}
@@ -71,12 +87,14 @@ const CameraDrawer = React.memo(
 
     return (
       <SwipeableDrawer
+        swipeAreaWidth={80}
         PaperProps={{
           style: {
             borderRight: 0,
             boxShadow: "10px 0px 20px rgba(0, 0, 0, 0.5)",
           },
         }}
+        hysteresis={0.2}
         anchor="left"
         open={menuOpen}
         onOpen={() => handleDrawer(true)}
@@ -92,20 +110,23 @@ const CameraDrawer = React.memo(
             paddingRight: "1rem",
           }}
         >
-          <div style={{ marginBottom: "0.5rem" }}>
-            <MenuItem style={menuItemStyle}>
-              <ListItemIcon>
-                <img
-                  style={{ height: 25, verticalAlign: "sub" }}
-                  alt="About"
-                  src={CameraIcon}
-                />
-              </ListItemIcon>
-              <Typography>
-                <strong>Camera select</strong>
-              </Typography>
-            </MenuItem>
-          </div>
+          {devices && (
+            <div style={{ marginBottom: "0.5rem" }}>
+              <MenuItem style={menuItemStyle}>
+                <ListItemIcon>
+                  <img
+                    style={{ height: 25, verticalAlign: "sub" }}
+                    alt="About"
+                    src={CameraIcon}
+                  />
+                </ListItemIcon>
+                <Typography>
+                  <strong>Camera select</strong>
+                </Typography>
+              </MenuItem>
+            </div>
+          )}
+
           {devices && devices.map((device, index) => listItem(device, index))}
           {devices && !devices[0].label && (
             <span onClick={refreshDevices} className="enumeration">
@@ -143,9 +164,11 @@ const CameraDrawer = React.memo(
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      toast.dark(`Deleted last check-in`, {
-                        containerId: "update",
+
+                      enqueueSnackbar("Deleted last check-in", {
+                        variant: "success",
                       });
+
                       handleDrawer(false);
                       localStorage.removeItem("lastCheckIn");
                     }}
@@ -203,23 +226,7 @@ const CameraDrawer = React.memo(
               <Typography>Text Input</Typography>
             </MenuItem>
           </Link>
-          {/* 
-          <MenuItem
-            onClick={() => {
-              toggleTorch();
-              handleDrawer(false);
-            }}
-            style={menuItemStyle}
-          >
-            <ListItemIcon>
-              <img
-                style={{ height: 25, verticalAlign: "sub" }}
-                alt="About"
-                src={torchIcon}
-              />
-            </ListItemIcon>
-            <Typography>Torch</Typography>
-          </MenuItem> */}
+
           <RWebShare
             data={{
               text: document.title,
@@ -227,10 +234,7 @@ const CameraDrawer = React.memo(
               title: document.title,
             }}
           >
-            <MenuItem
-              // onClick={() => handleDrawer(false)}
-              style={menuItemStyle}
-            >
+            <MenuItem style={menuItemStyle}>
               <ListItemIcon>
                 <img
                   style={{ height: 25, verticalAlign: "sub" }}
@@ -263,7 +267,8 @@ const CameraDrawer = React.memo(
         </MenuList>
       </SwipeableDrawer>
     );
-  }
+  },
+  (prevState, nextState) => {}
 );
 
 export default CameraDrawer;

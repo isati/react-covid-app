@@ -1,225 +1,273 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Switch, Route, Router } from "react-router-dom";
 import urlRegexSafe from "url-regex-safe";
 import jwt_decode from "jwt-decode";
 import QRReader from "../QRReader";
-import "../../assets/App.css";
 import Success from "../Dialog/Success";
 import About from "../About";
 import Failure from "../Dialog/Failure";
 import InputForm from "../InputForm";
 import FullScreen from "../Fullscreen";
 import Drawer from "../Drawer";
-import platform from "platform";
 import dayjs from "dayjs";
-import { useBeforeunload } from "react-beforeunload";
+import "../../assets/App.css";
+import { Button } from "@material-ui/core";
+import { useSnackbar } from "notistack";
+import * as serviceWorker from "../../serviceWorker";
 
-const App = ({ history }) => {
-  const defaultCamera = localStorage.getItem("defaultCamera");
-  const lastCheckIn = JSON.parse(localStorage.getItem("lastCheckIn"));
-
-  const [state, setState] = useState({
-    devices: null,
-    loading: true,
-    cameraLabel: null,
-    cameraId: defaultCamera || "",
-    venue: null,
-    text: null,
-    permission: null,
-    menuOpen: false,
-  });
-  const [video, setVideo] = useState(document.querySelector("video"));
-
-  const constraints = {
-    video: true,
-    audio: false,
-  };
-
-  // useBeforeunload((event) => {
-  //   localStorage.removeItem("lastCheckIn");
-  // });
-
-  const { cameraId, cameraLabel, devices, menuOpen, loading } = state;
-
-  // const streamVideo = () => {
-  //   if (video) {
-  //     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-  //       video.srcObject = stream;
-  //     });
-  //   }
-  // };
-  // useEffect(streamVideo);
-
-  const refreshDevices = async () => {
-    return navigator.mediaDevices.enumerateDevices().then((devices) => {
-      setDevices(devices);
+const App = React.memo(
+  ({ history }) => {
+    const defaultCamera = localStorage.getItem("defaultCamera");
+    const lastCheckIn = JSON.parse(localStorage.getItem("lastCheckIn"));
+    const { enqueueSnackbar } = useSnackbar();
+    const [state, setState] = useState({
+      devices: null,
+      loading: true,
+      cameraLabel: null,
+      cameraId: defaultCamera || "",
+      venue: null,
+      text: null,
+      permission: null,
+      menuOpen: false,
+      newVersionAvailable: false,
+      waitingWorker: {},
     });
-  };
 
-  const handleScan = (result) => {
-    if (result && !result.startsWith("UKC19TRACING:")) {
-      const urls = result.match(urlRegexSafe());
-      if (urls && urls.length) {
-        const confirm = window.confirm(
-          `This is not an official NHS QR code, do you want to redirect to ${urls[0]}?`
-        );
-        if (confirm === true) {
-          return (window.location.href = urls[0]);
-        } else {
-          return history.push("/failure");
-        }
+    const { cameraId, cameraLabel, devices, menuOpen } = state;
+
+    const onServiceWorkerUpdate = (registration) => {
+      const waitingServiceWorker = registration.waiting;
+
+      if (waitingServiceWorker) {
+        const Covid1984App = "Covid1984";
+        const assets = ["/index.html", "/favicon.ico"];
+
+        waitingServiceWorker.addEventListener("install", (installEvent) => {
+          installEvent.waitUntil(
+            caches.open(Covid1984App).then((cache) => {
+              cache.addAll(assets);
+            })
+          );
+        });
+
+        waitingServiceWorker.addEventListener("fetch", function (event) {
+          event.respondWith(
+            caches.match(event.request).then(function (response) {
+              // Cache hit - return response
+              if (response) {
+                return response;
+              }
+              return fetch(event.request);
+            })
+          );
+        });
+
+        waitingServiceWorker.addEventListener("statechange", (event) => {
+          if (event.target.state === "activated") {
+            enqueueSnackbar("A new version was released", {
+              persist: true,
+              variant: "info",
+              action: refreshAction(),
+            });
+          }
+        });
+        waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
       }
-      return history.push("/failure");
-    }
-    if (result) {
-      const { opn } = jwt_decode(result);
-      handleVenue(opn);
-    }
-  };
-
-  const setDevices = useCallback(
-    (devices) => {
-      const videoSelect = [];
-
-      devices.map((device, index) => {
-        if (device.kind === "videoinput") {
-          videoSelect.push(device);
-        }
-        return device;
-      });
-
-      // Go to text input if no video devices detected
-      if (!videoSelect.length) {
-        history.push("/input");
-      }
-
-      videoSelect.sort(function (a, b) {
-        if (a.label > b.label) {
-          return 1;
-        }
-        if (b.label > a.label) {
-          return -1;
-        }
-        return 0;
-      });
 
       setState((prevState) => ({
         ...prevState,
-        devices: videoSelect,
-        // loading: false,
+        waitingWorker: registration && registration.waiting,
+        newVersionAvailable: true,
       }));
-    },
-    [history]
-  );
+    };
 
-  const selectCamera = (cameraId) => {
-    document.querySelector("video").srcObject = null;
-    setState((prevState) => ({ ...prevState, cameraId }));
-  };
+    const updateServiceWorker = () => {
+      const { waitingWorker } = state;
+      setState((prevState) => ({ ...prevState, newVersionAvailable: false }));
+      window.location.reload();
+      waitingWorker && waitingWorker.postMessage({ type: "SKIP_WAITING" });
+    };
 
-  const onLoadQRScanner = (args) => {
-    const { streamTrack } = args;
-
-    if (!devices[0].label) {
-      refreshDevices().then((devices) => {
-        setState((prevState) => ({
-          ...prevState,
-          cameraLabel: streamTrack.label,
-        }));
-      });
-    }
-
-    if (devices?.[0]?.label) {
-      const device = state.devices.filter(
-        (device) => device.label === streamTrack.label
+    const refreshAction = (key) => {
+      //render the snackbar button
+      return (
+        <Fragment>
+          <Button
+            style={{ color: "white" }}
+            size="small"
+            onClick={updateServiceWorker}
+          >
+            {"refresh"}
+          </Button>
+        </Fragment>
       );
-      setState((prevState) => ({ ...prevState, cameraLabel: device[0].label }));
-    }
-  };
+    };
 
-  useEffect(() => {
-    if (platform.name !== "Firefox" && navigator.permissions) {
-      navigator.permissions.query({ name: "camera" }).then((result) => {
-        if (result.state === "granted") {
-          // setState((prevState) => ({ ...prevState, loading: false }));
-        } else if (result.state === "prompt") {
-        } else if (result.state === "denied") {
+    const refreshDevices = async () => {
+      return navigator.mediaDevices.enumerateDevices().then((devices) => {
+        setDevices(devices);
+      });
+    };
+
+    const handleVenue = (venue) => {
+      const checkin = {
+        venue,
+        time: dayjs(new Date()).format("DD MMM YYYY, HH:mm"),
+      };
+      setState((prevState) => ({ ...prevState, venue }));
+      localStorage.setItem("lastCheckIn", JSON.stringify(checkin));
+      history.push("/success");
+    };
+
+    const handleScan = (result) => {
+      if (result && !result.startsWith("UKC19TRACING:")) {
+        const urls = result.match(urlRegexSafe());
+        if (urls && urls.length) {
+          const confirm = window.confirm(
+            `This is not an official NHS QR code, do you want to redirect to ${urls[0]}?`
+          );
+          if (confirm === true) {
+            return (window.location.href = urls[0]);
+          } else {
+            return history.push("/failure");
+          }
+        }
+        return history.push("/failure");
+      }
+      if (result) {
+        const { opn } = jwt_decode(result);
+        handleVenue(opn);
+      }
+    };
+
+    useEffect(() => {
+      const { newVersionAvailable } = state;
+
+      if (process.env.NODE_ENV === "production") {
+        serviceWorker.register({ onUpdate: onServiceWorkerUpdate });
+      }
+
+      if (newVersionAvailable)
+        //show snackbar with refresh button
+        enqueueSnackbar("A new version was released", {
+          persist: true,
+          variant: "info",
+          action: refreshAction(),
+        });
+    }, []);
+
+    useEffect(() => {
+      window.onpopstate = (e) => {
+        // Close drawer on back button
+        if (menuOpen) {
+          handleDrawer();
+        }
+        return;
+      };
+    }, [menuOpen]);
+
+    const setDevices = useCallback(
+      (devices) => {
+        const videoSelect = [];
+
+        devices.map((device, index) => {
+          if (device.kind === "videoinput") {
+            videoSelect.push(device);
+          }
+          return device;
+        });
+
+        // Go to text input if no video devices detected
+        if (!videoSelect.length) {
           history.push("/input");
         }
-      });
-    }
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.enumerateDevices().then((devices) => {
-        setDevices(devices);
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-          setVideo(document.querySelector("video"));
-          if (video) {
-            video.srcObject = stream;
+
+        videoSelect.sort(function (a, b) {
+          if (a.label > b.label) {
+            return 1;
           }
-          setState((prevState) => ({ ...prevState, loading: false }));
+          if (b.label > a.label) {
+            return -1;
+          }
+          return 0;
         });
-      });
-    } else {
-      alert("getUserMedia() is not supported by your browser");
-    }
 
-    return () => {
-      // Work around bug in Chrome on Android 11: https://github.com/twilio/twilio-video-app-react/issues/355
-      document.querySelector("video").srcObject = null;
-      localStorage.removeItem("lastCheckIn");
-      // stream.getTracks().forEach((track) => track.stop());
+        setState((prevState) => ({
+          ...prevState,
+          devices: videoSelect,
+          // cameraId: videoSelect[0].id,
+          loading: false,
+        }));
+      },
+      [history]
+    );
+
+    const selectCamera = async (cameraId) => {
+      try {
+        setState((prevState) => ({ ...prevState, cameraId }));
+      } catch (err) {
+        console.log(err);
+      }
     };
-  }, [setDevices]);
 
-  const handleDrawer = (open) => {
-    if (open) {
-      return setState((prevState) => ({ ...prevState, menuOpen: open }));
-    }
+    const onLoadQRScanner = (args) => {
+      const { streamTrack } = args;
 
-    if (menuOpen) {
-      return setState((prevState) => ({ ...prevState, menuOpen: false }));
-    }
+      if (!devices[0]?.label) {
+        refreshDevices().then((devices) => {
+          setState((prevState) => ({
+            ...prevState,
+            cameraLabel: streamTrack.label,
+          }));
+        });
+      }
 
-    setState((prevState) => ({ ...prevState, menuOpen: true }));
-  };
-
-  const handleVenue = (venue) => {
-    const checkin = {
-      venue,
-      time: dayjs(new Date()).format("DD MMM YYYY, HH:mm"),
+      if (devices?.[0]?.label) {
+        const device = state.devices.filter(
+          (device) => device.label === streamTrack.label
+        );
+        setState((prevState) => ({
+          ...prevState,
+          cameraLabel: device[0].label,
+        }));
+      }
     };
-    setState((prevState) => ({ ...prevState, venue }));
-    localStorage.setItem("lastCheckIn", JSON.stringify(checkin));
-    history.push("/success");
-  };
 
-  const handleBack = () => {
-    history.push("/");
-    setState((prevState) => ({ ...prevState, venue: null }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const checkin = {
-      venue: state.text,
-      time: dayjs(new Date()).format("DD MMM YYYY, HH:mm"),
+    const handleDrawer = (open) => {
+      return setState((prevState) => ({
+        ...prevState,
+        menuOpen: !prevState.menuOpen,
+      }));
     };
-    setState((prevState) => ({ ...prevState, venue: state.text }));
-    localStorage.setItem("lastCheckIn", JSON.stringify(checkin));
-    history.push("/success");
-  };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
+    const handleBack = () => {
+      history.push("/");
+      setState((prevState) => ({ ...prevState, venue: null }));
+    };
 
-  if (!loading) {
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      const checkin = {
+        venue: state.text,
+        time: dayjs(new Date()).format("DD MMM YYYY, HH:mm"),
+      };
+      setState((prevState) => ({ ...prevState, venue: state.text }));
+      localStorage.setItem("lastCheckIn", JSON.stringify(checkin));
+      history.push("/success");
+    };
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setState((prevState) => ({ ...prevState, [name]: value }));
+    };
+
     return (
       <FullScreen>
         <Router history={history}>
           <Drawer
+            defaultCamera={defaultCamera}
+            cameraId={cameraId}
             menuOpen={state.menuOpen}
             devices={devices}
             lastCheckIn={lastCheckIn}
@@ -229,6 +277,7 @@ const App = ({ history }) => {
           />
           <Switch>
             <Route exact path="/about">
+              d
               <About handleDrawer={handleDrawer} />
             </Route>
             <Route exact path="/success">
@@ -250,8 +299,8 @@ const App = ({ history }) => {
 
             <Route path="/">
               <QRReader
+                setDevices={setDevices}
                 devices={devices}
-                video={video}
                 onLoad={onLoadQRScanner}
                 handleScan={handleScan}
                 cameraId={cameraId}
@@ -264,8 +313,15 @@ const App = ({ history }) => {
         </Router>
       </FullScreen>
     );
+  },
+  (prevState, nextState) => {
+    if (
+      prevState.history.location.pathname !==
+      nextState.history.location.pathname
+    )
+      return false;
+    return true;
   }
-  return "";
-};
+);
 
 export default App;

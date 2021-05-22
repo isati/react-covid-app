@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import QrReader from "../../modules/react-camera-qr/lib";
 import QRDescription from "./Description";
 import CloseIcon from "../../assets/close.svg";
+import platform from "platform";
 
 const previewStyle = {
   height: "100%",
@@ -22,8 +23,35 @@ const options = {
 };
 
 const QRReader = React.memo(
-  ({ cameraId, handleScan, selectCamera, handleDrawer, onLoad, devices }) => {
-    if (devices) {
+  ({ history, cameraId, handleScan, handleDrawer, onLoad, setDevices }) => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      if (platform.name !== "Firefox" && navigator.permissions) {
+        navigator.permissions.query({ name: "camera" }).then((result) => {
+          if (result.state === "granted") {
+          } else if (result.state === "prompt") {
+          } else if (result.state === "denied") {
+            history.push("/input");
+          }
+        });
+      }
+
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => {
+            if (!devices) return history.push("/input");
+            setDevices(devices);
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        alert("getUserMedia() is not supported by your browser");
+        return history.push("/input");
+      }
+    }, []);
+
+    if (!loading) {
       return (
         <>
           <img
@@ -41,11 +69,9 @@ const QRReader = React.memo(
             onError={handleError}
             facingMode="environment"
             onScan={handleScan}
-            chooseDeviceId={cameraId}
             onLoad={onLoad}
             resolution={options.resolution}
             showViewFinder={false}
-            selectCamera={selectCamera}
           />
           <div
             onClick={(e) => {
@@ -53,13 +79,14 @@ const QRReader = React.memo(
               e.stopPropagation();
             }}
             className="overlay"
-          ></div>
+          />
           <QRDescription />
         </>
       );
     }
     return "";
-  }
+  },
+  (prevState, nextState) => {}
 );
 
 export default QRReader;

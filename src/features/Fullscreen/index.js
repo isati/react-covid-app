@@ -1,7 +1,7 @@
 import React from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-const FullScreenWrapper = ({ children }) => {
+const FullScreenWrapper = React.memo(({ children }) => {
   const handle = useFullScreenHandle();
   let clicks = [];
   let timeout;
@@ -34,6 +34,6 @@ const FullScreenWrapper = ({ children }) => {
       <div onClick={clickHandler}>{children}</div>
     </FullScreen>
   );
-};
+});
 
 export default FullScreenWrapper;

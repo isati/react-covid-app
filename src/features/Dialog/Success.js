@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import TickIcon from "../../assets/tick.svg";
-import Slide from "react-reveal/Slide";
+import { Slide } from "@material-ui/core";
 import dayjs from "dayjs";
 import platform from "platform";
 
@@ -8,25 +8,24 @@ const Success = ({ venue, handleBack, history }) => {
   const textWrapper = document.getElementsByClassName("textWrapper");
   const cancelText = document.getElementsByClassName("cancel");
   const fakeButton = document.getElementsByClassName("fakeButton");
-
   const { state } = history.location;
 
   useEffect(() => {
     if (platform.name === "Samsung Internet") {
+      // Hacky workaround for Samsung Browser in dark mode
       if (textWrapper && cancelText) {
         setTimeout(() => {
-          textWrapper[0].style.color = "unset";
+          textWrapper[0].style.color = "hsla(0, 0%, 0%, 1)";
+          textWrapper[0].style.filter = "invert(1)";
           cancelText[0].style.color = "hsla(207, 100%, 40%, 1)";
           fakeButton[0].style.background = " hsla(207, 100%, 40%, 1)";
-        }, 400);
+        }, 500);
       }
     }
   }, [textWrapper, cancelText, fakeButton]);
 
-  console.log(state);
-
   return (
-    <Slide bottom duration={300}>
+    <Slide in direction="up">
       <div className="successContainer">
         <div className="successWrapper">
           <p>
