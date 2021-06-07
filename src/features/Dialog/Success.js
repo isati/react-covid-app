@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import TickIcon from "../../assets/tick.svg";
+import tickAnimation from "../../assets/tickanimtrans.gif";
 import { Slide } from "@material-ui/core";
 import dayjs from "dayjs";
 import platform from "platform";
@@ -9,6 +9,24 @@ const Success = ({ venue, handleBack, history }) => {
   const cancelText = document.getElementsByClassName("cancel");
   const fakeButton = document.getElementsByClassName("fakeButton");
   const { state } = history.location;
+
+  const restartGif = (imgElement) => {
+    let element = document.getElementById(imgElement);
+    if (element) {
+      let imgSrc = element.src;
+      element.src = imgSrc;
+    }
+  };
+
+  useEffect(() => {
+    // if (!state?.venue || !venue) {
+    //   history.push("/");
+    //   return;
+    // }
+    return () => {
+      restartGif("tick");
+    };
+  }, []);
 
   useEffect(() => {
     if (platform.name === "Samsung Internet") {
@@ -25,16 +43,26 @@ const Success = ({ venue, handleBack, history }) => {
   }, [textWrapper, cancelText, fakeButton]);
 
   return (
-    <Slide in direction="up">
+    <Slide
+      unmountOnExit
+      in
+      direction={platform.manufacturer === "Apple" ? "left" : "up"}
+    >
       <div className="successContainer">
         <div className="successWrapper">
-          <p>
-            <img alt="Success" className="successIcon" src={TickIcon} />
-          </p>
-
+          <div style={{ display: "flex", flexGrow: 1 }} />
+          <img
+            id="tick"
+            alt="Success"
+            className="successIcon"
+            src={tickAnimation}
+          />
           <div className="textWrapper">
             <p className="success">
-              Thank you for checking in to {state?.venue || venue}{" "}
+              Thank you for checking in to{" "}
+              <span style={{ fontWeight: 500, wordBreak: "break-word" }}>
+                {state?.venue || venue}
+              </span>{" "}
             </p>
 
             <p className="time" id="time">
@@ -45,15 +73,14 @@ const Success = ({ venue, handleBack, history }) => {
               coronavirus at a venue.
             </p>
           </div>
-          <p onClick={history.goBack} className="cancel">
+          <span onClick={history.goBack} className="cancel">
             Wrong check-in? Tap to cancel.
-          </p>
+          </span>
+          <div style={{ display: "flex", flexGrow: 1 }} />
           <div className="bottomButtons" onClick={handleBack}>
-            <p>
-              <button className="fakeButton" id="setText">
-                Back to home
-              </button>
-            </p>
+            <button className="fakeButton" id="setText">
+              Back to home
+            </button>
           </div>
         </div>
       </div>

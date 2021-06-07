@@ -23,7 +23,15 @@ const options = {
 };
 
 const QRReader = React.memo(
-  ({ history, cameraId, handleScan, handleDrawer, onLoad, setDevices }) => {
+  ({
+    history,
+    cameraId,
+    handleScan,
+    handleDrawer,
+    onLoad,
+    setDevices,
+    scanning,
+  }) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
       if (platform.name !== "Firefox" && navigator.permissions) {
@@ -80,7 +88,7 @@ const QRReader = React.memo(
             }}
             className="overlay"
           />
-          <QRDescription />
+          <QRDescription scanning={scanning} />
         </>
       );
     }

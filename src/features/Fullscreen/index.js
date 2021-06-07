@@ -31,7 +31,9 @@ const FullScreenWrapper = React.memo(({ children }) => {
 
   return (
     <FullScreen handle={handle}>
-      <div onClick={clickHandler}>{children}</div>
+      <div style={{ height: "100%", width: "100%" }} onClick={clickHandler}>
+        {children}
+      </div>
     </FullScreen>
   );
 });

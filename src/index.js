@@ -12,6 +12,7 @@ const notistackRef = React.createRef();
 const AlertProvider = ({ children }) => (
   <SnackbarProvider
     ref={notistackRef}
+    autoHideDuration={2500}
     preventDuplicate
     onClose={(event, reason, key) => {
       if (reason === "clickaway") {

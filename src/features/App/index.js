@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { Switch, Route, Router } from "react-router-dom";
-import urlRegexSafe from "url-regex-safe";
+// import urlRegexSafe from "url-regex-safe";
 import jwt_decode from "jwt-decode";
 import QRReader from "../QRReader";
 import Success from "../Dialog/Success";
@@ -14,6 +14,7 @@ import "../../assets/App.css";
 import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import * as serviceWorker from "../../serviceWorker";
+const queryString = require("query-string");
 
 const App = React.memo(
   ({ history }) => {
@@ -31,9 +32,11 @@ const App = React.memo(
       menuOpen: false,
       newVersionAvailable: false,
       waitingWorker: {},
+      scanning: false,
     });
 
-    const { cameraId, cameraLabel, devices, menuOpen } = state;
+    const { cameraId, cameraLabel, devices, menuOpen, scanning } = state;
+    const { v } = queryString.parse(history?.location?.search);
 
     const onServiceWorkerUpdate = (registration) => {
       const waitingServiceWorker = registration.waiting;
@@ -120,23 +123,19 @@ const App = React.memo(
     };
 
     const handleScan = (result) => {
-      if (result && !result.startsWith("UKC19TRACING:")) {
-        const urls = result.match(urlRegexSafe());
-        if (urls && urls.length) {
-          const confirm = window.confirm(
-            `This is not an official NHS QR code, do you want to redirect to ${urls[0]}?`
-          );
-          if (confirm === true) {
-            return (window.location.href = urls[0]);
-          } else {
-            return history.push("/failure");
-          }
-        }
-        return history.push("/failure");
-      }
       if (result) {
-        const { opn } = jwt_decode(result);
-        handleVenue(opn);
+        setState((prevState) => ({ ...prevState, scanning: true }));
+
+        setTimeout(() => {
+          if (result.startsWith("UKC19TRACING:")) {
+            const { opn } = jwt_decode(result);
+            setState((prevState) => ({ ...prevState, scanning: false }));
+            return handleVenue(opn);
+          }
+
+          setState((prevState) => ({ ...prevState, scanning: false }));
+          return history.push("/failure");
+        }, [800]);
       }
     };
 
@@ -154,6 +153,10 @@ const App = React.memo(
           variant: "info",
           action: refreshAction(),
         });
+
+      if (v) {
+        handleVenue(v);
+      }
     }, []);
 
     useEffect(() => {
@@ -277,8 +280,7 @@ const App = React.memo(
           />
           <Switch>
             <Route exact path="/about">
-              d
-              <About handleDrawer={handleDrawer} />
+              <About handleDrawer={handleDrawer} handleBack={handleBack} />
             </Route>
             <Route exact path="/success">
               <Success
@@ -307,6 +309,7 @@ const App = React.memo(
                 handleDrawer={handleDrawer}
                 handleVenue={handleVenue}
                 history={history}
+                scanning={scanning}
               />
             </Route>
           </Switch>
@@ -315,12 +318,12 @@ const App = React.memo(
     );
   },
   (prevState, nextState) => {
-    if (
-      prevState.history.location.pathname !==
-      nextState.history.location.pathname
-    )
-      return false;
-    return true;
+    // if (
+    //   prevState.history.location.pathname !==
+    //   nextState.history.location.pathname
+    // )
+    //   return false;
+    // return true;
   }
 );
 
