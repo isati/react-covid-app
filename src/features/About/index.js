@@ -73,7 +73,7 @@ const About = React.memo(({ handleDrawer, handleBack }) => {
           <a
             onClick={(e) => e.stopPropagation()}
             style={{ width: "250px", alignSelf: "center" }}
-            href="https://cv1984.xyz/covid1984-latest.apk"
+            href="https://apk.cv1984.app"
           >
             <img
               style={{ height: "100%", maxHeight: "8vh", margin: "1rem" }}
