@@ -140,7 +140,7 @@ const CameraDrawer = React.memo(
             <div>
               <Link
                 to={{
-                  pathname: "/success",
+                  pathname: `/success/${lastCheckIn.venue}`,
                   state: lastCheckIn,
                 }}
               >

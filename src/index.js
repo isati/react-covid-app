@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./features/App";
-import { createBrowserHistory } from "history";
+import { createHashHistory } from "history";
 import { SnackbarProvider } from "notistack";
 
-const history = createBrowserHistory();
+const history = createHashHistory();
 
 const notistackRef = React.createRef();
 
