@@ -22,6 +22,8 @@
             "runtime": "automatic" // defaults to classic
           }
         ],
+
+        ["@babel/plugin-proposal-private-methods", { "loose": true }],
         // "transform-inline-environment-variables",
         "@babel/plugin-transform-modules-commonjs",
         "@babel/plugin-transform-destructuring",
@@ -29,7 +31,7 @@
         "@babel/transform-react-inline-elements",
         "@babel/plugin-transform-react-pure-annotations",
         "@babel/plugin-transform-runtime",
-        "@babel/plugin-proposal-class-properties",
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
         "tailcall-optimization",
         // "babel-plugin-groundskeeper-willie"
         "module:faster.js",
