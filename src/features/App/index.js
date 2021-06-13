@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Switch, Route, Router } from "react-router-dom";
+import { Switch, Route, HashRouter } from "react-router-dom";
 // import urlRegexSafe from "url-regex-safe";
 import jwt_decode from "jwt-decode";
 import QRReader from "../QRReader";
@@ -43,7 +43,7 @@ const App = React.memo(
 
       if (waitingServiceWorker) {
         const Covid1984App = "Covid1984";
-        const assets = ["/index.html", "/favicon.ico"];
+        const assets = ["index.html", "favicon.ico"];
 
         waitingServiceWorker.addEventListener("install", (installEvent) => {
           installEvent.waitUntil(
@@ -267,7 +267,7 @@ const App = React.memo(
 
     return (
       <FullScreen>
-        <Router history={history}>
+        <HashRouter history={history}>
           <Drawer
             defaultCamera={defaultCamera}
             cameraId={cameraId}
@@ -288,6 +288,9 @@ const App = React.memo(
                 handleBack={handleBack}
                 history={history}
               />
+            </Route>
+            <Route path="/success/:venue">
+                <Success handleBack={handleBack} history={history} />
             </Route>
             <Route exact path="/failure" component={Failure} />
             <Route exact path="/input">
@@ -313,7 +316,7 @@ const App = React.memo(
               />
             </Route>
           </Switch>
-        </Router>
+        </HashRouter>
       </FullScreen>
     );
   },

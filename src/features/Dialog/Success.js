@@ -61,7 +61,7 @@ const Success = ({ venue, handleBack, history }) => {
             <p className="success">
               Thank you for checking in to{" "}
               <span style={{ fontWeight: 500, wordBreak: "break-word" }}>
-                {state?.venue || venue}
+                {window.location.hash.split('/')[2] || venue}
               </span>{" "}
             </p>
 
