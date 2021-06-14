@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { Switch, Route, HashRouter } from "react-router-dom";
+import { Switch, Route, Router } from "react-router-dom";
 // import urlRegexSafe from "url-regex-safe";
 import jwt_decode from "jwt-decode";
 import QRReader from "../QRReader";
@@ -267,7 +267,7 @@ const App = React.memo(
 
     return (
       <FullScreen>
-        <HashRouter history={history}>
+        <Router history={history}>
           <Drawer
             defaultCamera={defaultCamera}
             cameraId={cameraId}
@@ -290,7 +290,7 @@ const App = React.memo(
               />
             </Route>
             <Route path="/success/:venue">
-                <Success handleBack={handleBack} history={history} />
+              <Success handleBack={handleBack} history={history} />
             </Route>
             <Route exact path="/failure" component={Failure} />
             <Route exact path="/input">
@@ -316,17 +316,17 @@ const App = React.memo(
               />
             </Route>
           </Switch>
-        </HashRouter>
+        </Router>
       </FullScreen>
     );
   },
   (prevState, nextState) => {
-    // if (
-    //   prevState.history.location.pathname !==
-    //   nextState.history.location.pathname
-    // )
-    //   return false;
-    // return true;
+    if (
+      prevState.history.location.pathname !==
+      nextState.history.location.pathname
+    )
+      return false;
+    return true;
   }
 );
 
