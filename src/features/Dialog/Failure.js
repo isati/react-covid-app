@@ -1,28 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import crossIcon from "../../assets/cross.svg";
 import { Slide } from "@material-ui/core";
 import platform from "platform";
 
 const Failure = React.memo((props) => {
-  const textWrapper = document.getElementsByClassName("textWrapper");
-  const fakeLink = document.getElementsByClassName("fakeLink");
-  const fakeButton = document.getElementsByClassName("fakeButton");
-
-  useEffect(() => {
-    if (platform.name === "Samsung Internet") {
-      if (textWrapper && fakeLink) {
-        console.log(fakeLink);
-        setTimeout(() => {
-          textWrapper[0].style.color = "hsla(0, 0%, 0%, 1)";
-          fakeLink[0].style.color = "hsla(206, 99%, 38%, 1) !important";
-          // fakeLink[0].style.filter = "invert(100%)";
-          fakeLink[0].style.mixBlendMode = "darken";
-          fakeButton[0].style.background = " hsla(207, 100%, 40%, 1)";
-        }, 600);
-      }
-    }
-  }, [textWrapper, fakeLink, fakeButton]);
-
   return (
     <Slide
       unmountOnExit

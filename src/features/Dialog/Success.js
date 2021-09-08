@@ -28,20 +28,6 @@ const Success = ({ venue, handleBack, history }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (platform.name === "Samsung Internet") {
-      // Hacky workaround for Samsung Browser in dark mode
-      if (textWrapper && cancelText) {
-        setTimeout(() => {
-          textWrapper[0].style.color = "hsla(0, 0%, 0%, 1)";
-          textWrapper[0].style.filter = "invert(1)";
-          cancelText[0].style.color = "hsla(207, 100%, 40%, 1)";
-          fakeButton[0].style.background = " hsla(207, 100%, 40%, 1)";
-        }, 500);
-      }
-    }
-  }, [textWrapper, cancelText, fakeButton]);
-
   return (
     <Slide
       unmountOnExit
